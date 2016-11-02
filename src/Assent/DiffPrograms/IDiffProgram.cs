@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Assent.DiffPrograms
+﻿namespace Assent.DiffPrograms
 {
     public interface IDiffProgram
     {
