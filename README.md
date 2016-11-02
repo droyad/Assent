@@ -28,6 +28,9 @@ this.Assent("String To Assert", configuration);
 
 You can use your favourite assertion library, see the [Comparer](https://github.com/droyad/Assent/wiki) wiki page.
 
+## Automated Builds
+Having a diff tool pop up during an automated build is not ideal, so it can be disabled by setting the `AssentNonInteractive` environment variable to `true`.
+
 ## Documentation
 Refer to the [Wiki](https://github.com/droyad/Assent/wiki)
 
