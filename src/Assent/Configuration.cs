@@ -37,7 +37,7 @@ namespace Assent
         public IReaderWriter<string> ReaderWriter { get; private set; }
         public IComparer<string> Comparer { get; private set; }
 
-        public Configuration WithNamer(INamer namer)
+        public Configuration UsingNamer(INamer namer)
         {
             return new Configuration(this)
             {
