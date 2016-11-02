@@ -21,11 +21,11 @@ line with:
 this.Assent("String To Assert")
 ```
 
-You can use your favourite assertion library, see the [Comparer](Comparer) section.
+You can use your favourite assertion library, see the [Comparer](#comparer) section.
 
 ### Execution
 When the test is run, it will look for an approval file in the same 
-directory as the code file. See the [Naming](#Naming) on how this is achieved
+directory as the code file. See the [Naming](#naming) on how this is achieved
 and how to customise this. On the first run, an empty approval file is created.
 
 If the received value does not match the value in
