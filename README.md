@@ -26,7 +26,9 @@ var configuration = configuration.UsingExtension("json");
 this.Assent("String To Assert", configuration);
 ```
 
-You can use your favourite assertion library, see the [Comparer](https://github.com/droyad/Assent/wiki) wiki page.
+You can use your favourite assertion library, see the [Comparer](https://github.com/droyad/Assent/wiki/Comparison) wiki page.
+
+When the test is run, it will look for an approved file in the same directory as the code file. See [Naming](https://github.com/droyad/Assent/wiki/Naming) on how this is achieved and how to customise this. On the first run, an empty `approved` file is created and the diff tool will show, allowing you to validate the tests result and copy it over to the `approved` file. For more detail, see [How It Works](https://github.com/droyad/Assent/wiki/How-It-Works)
 
 ## Automated Builds
 Having a diff tool pop up during an automated build is not ideal, so it can be disabled by setting the `AssentNonInteractive` environment variable to `true`.
