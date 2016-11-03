@@ -31,6 +31,8 @@ var cleanups = new List<Action>();
 Setup(context =>
 {
     Information("Building Assent v{0}", nugetVersion);
+    if(BuildSystem.IsRunningOnAppVeyor)
+        AppVeyor.UpdateBuildVersion(gitVersionInfo.NuGetVersion);
 });
 
 Teardown(context =>
