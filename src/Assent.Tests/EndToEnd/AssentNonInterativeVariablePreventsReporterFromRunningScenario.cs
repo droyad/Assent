@@ -25,9 +25,9 @@ namespace Assent.Tests.EndToEnd
             _action.ShouldThrow<AssentException>().WithMessage("Strings differ");
         }
 
-        public void AndThenTheRecievedFileIsNoWritten()
+        public void AndThenTheRecievedFileIsWritten()
         {
-            ReaderWriter.Files.Keys.Should().NotContain(_recievedPath);
+            ReaderWriter.Files.Keys.Should().Contain(_recievedPath);
         }
 
         [TearDown]

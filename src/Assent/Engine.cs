@@ -42,13 +42,14 @@ namespace Assent
 
         private static bool RunReporter(IConfiguration<T> configuration, T recieved, string receivedFileName, string approvedFileName)
         {
+            configuration.ReaderWriter.Write(receivedFileName, recieved);
+
             var isNonInteractive = "true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
             if (isNonInteractive)
                 return false;
 
             try
             {
-                configuration.ReaderWriter.Write(receivedFileName, recieved);
                 configuration.Reporter.Report(receivedFileName, approvedFileName);
                 return true;
             }
