@@ -1,4 +1,4 @@
-﻿namespace Assent.DiffPrograms
+﻿namespace Assent.Reporters.DiffPrograms
 {
     public interface IDiffProgram
     {

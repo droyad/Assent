@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using System.Runtime.CompilerServices;
 
-namespace Assent
+namespace Assent.Namers
 {
     public class DefaultNamer : INamer
     {

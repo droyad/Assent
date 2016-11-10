@@ -1,4 +1,6 @@
 ﻿using System;
+using Assent.Namers;
+using Assent.Reporters;
 
 namespace Assent
 {
@@ -50,6 +52,19 @@ namespace Assent
             return new Configuration(this)
             {
                 Reporter = reporter
+            };
+        }
+
+        /// <summary>
+        /// Executes the supplied delegate as the reporter. The first parameter is the received name, and the second is the approved filename.
+        /// </summary>
+        /// <param name="action">(string receivedFile, string approvedFile) => void</param>
+        /// <returns>A new configuration instance</returns>
+        public Configuration UsingReporter(Action<string, string> action)
+        {
+            return new Configuration(this)
+            {
+                Reporter = new DelegateReporter(action)
             };
         }
 

@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using FluentAssertions;
 using NSubstitute;
 
 namespace Assent.Tests.EndToEnd
 {
-    public class TestPassesIfTheApprovalFileIsUpdatedByTheReporter : BaseScenario
+    public class TestPassesIfTheApprovalFileIsUpdatedByTheReporterScenario : BaseScenario
     {
         private Action _action;
-        private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(TestPassesIfTheApprovalFileIsUpdatedByTheReporter)}.{nameof(WhenTheTestIsRun)}.received.txt";
-        private readonly string _approvedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(TestPassesIfTheApprovalFileIsUpdatedByTheReporter)}.{nameof(WhenTheTestIsRun)}.approved.txt";
+        private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(TestPassesIfTheApprovalFileIsUpdatedByTheReporterScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
+        private readonly string _approvedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(TestPassesIfTheApprovalFileIsUpdatedByTheReporterScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 
         public void AndGivenTheApprovedFileDoesNotMatch()
         {

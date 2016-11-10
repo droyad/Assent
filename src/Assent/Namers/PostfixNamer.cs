@@ -1,4 +1,4 @@
-﻿namespace Assent
+﻿namespace Assent.Namers
 {
     public class PostfixNamer : DefaultNamer
     {

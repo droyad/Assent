@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Assent.DiffPrograms;
+using Assent.Reporters.DiffPrograms;
 
-namespace Assent
+namespace Assent.Reporters
 {
     public class DiffReporter : IReporter
     {

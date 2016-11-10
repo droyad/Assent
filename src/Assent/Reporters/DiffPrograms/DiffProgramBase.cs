@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Assent.DiffPrograms
+namespace Assent.Reporters.DiffPrograms
 {
     public abstract class DiffProgramBase : IDiffProgram
     {
