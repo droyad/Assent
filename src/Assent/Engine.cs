@@ -4,8 +4,10 @@ using System.Linq.Expressions;
 
 namespace Assent
 {
-    internal static class Engine<T>
+    public static class Engine<T>
     {
+
+        public static bool IsNonInteractive => "true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
 
         internal static void Execute(IConfiguration<T> configuration, TestMetadata metadata, T recieved)
         {
@@ -44,8 +46,7 @@ namespace Assent
         {
             configuration.ReaderWriter.Write(receivedFileName, recieved);
 
-            var isNonInteractive = "true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
-            if (isNonInteractive)
+            if (IsNonInteractive)
                 return false;
 
             try
