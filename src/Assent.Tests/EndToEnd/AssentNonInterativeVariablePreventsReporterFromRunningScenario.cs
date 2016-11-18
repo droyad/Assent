@@ -22,7 +22,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnAssentExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentException>().WithMessage("Strings differ");
+            _action.ShouldThrow<AssentFailedException>().WithMessage("Strings differ");
         }
 
         public void AndThenTheRecievedFileIsWritten()

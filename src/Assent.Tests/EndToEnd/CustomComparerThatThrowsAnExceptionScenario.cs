@@ -21,7 +21,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentException>().And.Message.Should().StartWith("System.Exception: Bar");
+            _action.ShouldThrow<AssentFailedException>().And.Message.Should().StartWith("System.Exception: Bar");
         }
     }
 
@@ -42,7 +42,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentException>().WithMessage("Bar");
+            _action.ShouldThrow<AssentFailedException>().WithMessage("Bar");
         }
     }
 
@@ -63,7 +63,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentException>().And.Message.Should().StartWith("NUnit.Framework.AssertionException: Expected string to be <null>, but found \"Foo\"");
+            _action.ShouldThrow<AssentFailedException>().And.Message.Should().StartWith("NUnit.Framework.AssertionException: Expected string to be <null>, but found \"Foo\"");
         }
     }
 }

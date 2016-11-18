@@ -12,28 +12,30 @@ namespace Assent
             var approvedFileName = name + ".approved." + configuration.Extension;
             var receivedFileName = name + ".received." + configuration.Extension;
 
-            var result = Compare(configuration, approvedFileName, recieved);
+            var result = Compare(configuration, receivedFileName, approvedFileName, recieved);
             if (!result.Passed)
             {
                 var reporterRan = RunReporter(configuration, recieved, receivedFileName, approvedFileName);
                 if (reporterRan)
-                    result = Compare(configuration, approvedFileName, recieved);
+                    result = Compare(configuration, receivedFileName, approvedFileName,  recieved);
             }
 
             if (result.Passed)
                 return;
 
-            throw new AssentException(result.Error);
+            throw new AssentFailedException(result.Error, receivedFileName, approvedFileName);
         }
 
-        private static CompareResult Compare(IConfiguration<T> configuration, string approvedFileName, T recieved)
+        private static CompareResult Compare(IConfiguration<T> configuration, string receivedFileName, string approvedFileName, T recieved)
         {
             var approved = default(T);
             var readerWriter = configuration.ReaderWriter;
             if (readerWriter.Exists(approvedFileName))
                 approved = readerWriter.Read(approvedFileName);
-            else
+            else if (configuration.IsInteractive)
                 readerWriter.Write(approvedFileName, approved);
+            else
+                throw new AssentApprovedFileNotFoundException(receivedFileName, approvedFileName);
 
             var result = Compare(configuration.Comparer, recieved, approved);
             return result;
