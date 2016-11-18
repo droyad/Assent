@@ -6,9 +6,6 @@ namespace Assent
 {
     public static class Engine<T>
     {
-
-        public static bool IsNonInteractive => "true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
-
         internal static void Execute(IConfiguration<T> configuration, TestMetadata metadata, T recieved)
         {
             var name = configuration.Namer.GetName(metadata);
@@ -46,7 +43,7 @@ namespace Assent
         {
             configuration.ReaderWriter.Write(receivedFileName, recieved);
 
-            if (IsNonInteractive)
+            if (!configuration.IsInteractive)
                 return false;
 
             try
