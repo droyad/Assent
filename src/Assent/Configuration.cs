@@ -52,6 +52,14 @@ namespace Assent
             };
         }
 
+        public Configuration UsingFixedName(string name)
+        {
+            return new Configuration(this)
+            {
+                Namer = new FixedNamer(name)
+            };
+        }
+
         public Configuration UsingReporter(IReporter reporter)
         {
             return new Configuration(this)
