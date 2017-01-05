@@ -19,7 +19,7 @@ namespace Assent
         public Configuration()
         {
             Reporter = new DiffReporter();
-            Comparer = new DefaultStringComparer();
+            Comparer = new DefaultStringComparer(true);
             Extension = "txt";
             ReaderWriter = new StringReaderWriter();
             Namer = new DefaultNamer();
