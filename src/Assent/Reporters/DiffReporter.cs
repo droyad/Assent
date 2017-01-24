@@ -9,7 +9,8 @@ namespace Assent.Reporters
         public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms = new IDiffProgram[]
         {
             new BeyondCompareDiffProgram(),
-            new KDiff3DiffProgram()
+            new KDiff3DiffProgram(),
+            new SemanticMergeDiffProgram() 
         };
 
         private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
