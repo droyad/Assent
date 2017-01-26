@@ -10,7 +10,7 @@ namespace Assent.Reporters
         {
             new BeyondCompareDiffProgram(),
             new KDiff3DiffProgram(),
-            new SemanticMergeDiffProgram() 
+            new XdiffDiffProgram() 
         };
 
         private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
