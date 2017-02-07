@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // TOOLS
 //////////////////////////////////////////////////////////////////////
-#tool "nuget:?package=GitVersion.CommandLine"
+#tool "nuget:?package=GitVersion.CommandLine&version=3.6.5"
 #addin "MagicChunks"
 
 //////////////////////////////////////////////////////////////////////
@@ -137,7 +137,8 @@ Task("__PushPackages")
     {
         NuGetPush(package, new NuGetPushSettings {
             Source = "https://www.nuget.org/api/v2/package",
-            ApiKey = EnvironmentVariable("NuGetApiKey")
+            ApiKey = EnvironmentVariable("NuGetApiKey"),
+            Timeout = TimeSpan.FromMinutes(20)
         });
     }
 
