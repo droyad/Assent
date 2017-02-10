@@ -1,6 +1,7 @@
 ﻿using System;
 using Assent.Namers;
 using Assent.Reporters;
+using Assent.Sanitisers;
 
 namespace Assent
 {
@@ -12,6 +13,8 @@ namespace Assent
         IReaderWriter<T> ReaderWriter { get; }
         IComparer<T> Comparer { get; }
         bool IsInteractive { get; }
+
+        ISanitiser<T> Sanitiser { get; }
     }
 
     public class Configuration : IConfiguration<string>
@@ -23,6 +26,7 @@ namespace Assent
             Extension = "txt";
             ReaderWriter = new StringReaderWriter();
             Namer = new DefaultNamer();
+            Sanitiser = new NullSanitiser<string>();
             IsInteractive = !"true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
         }
 
@@ -33,6 +37,7 @@ namespace Assent
             Reporter = basedOn.Reporter;
             Extension = basedOn.Extension;
             ReaderWriter = basedOn.ReaderWriter;
+            Sanitiser = basedOn.Sanitiser;
             IsInteractive = basedOn.IsInteractive;
         }
 
@@ -41,6 +46,7 @@ namespace Assent
         public string Extension { get; private set; }
         public IReaderWriter<string> ReaderWriter { get; private set; }
         public IComparer<string> Comparer { get; private set; }
+        public ISanitiser<string> Sanitiser { get; private set; }
 
         public bool IsInteractive { get; private set; }
 
@@ -122,6 +128,22 @@ namespace Assent
                     comparer(r, a);
                     return CompareResult.Pass();
                 })
+            };
+        }
+
+        public Configuration UsingSanitiser(ISanitiser<string> sanitiser)
+        {
+            return new Configuration(this)
+            {
+                Sanitiser = sanitiser
+            };
+        }
+
+        public Configuration UsingSanitiser(Func<string, string> Sanitiser)
+        {
+            return new Configuration(this)
+            {
+                Sanitiser = new DelegateSanitiser<string>(Sanitiser)
             };
         }
 

@@ -8,6 +8,7 @@ namespace Assent
     {
         internal static void Execute(IConfiguration<T> configuration, TestMetadata metadata, T recieved)
         {
+            recieved = configuration.Sanitiser.Sanatise(recieved);
             var name = configuration.Namer.GetName(metadata);
             var approvedFileName = name + ".approved." + configuration.Extension;
             var receivedFileName = name + ".received." + configuration.Extension;
