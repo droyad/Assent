@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Assent
 {
@@ -8,7 +9,14 @@ namespace Assent
 
         public string Read(string filename) => File.ReadAllText(filename);
 
-        public void Write(string filename, string data) => File.WriteAllText(filename, data);
+        public void Write(string filename, string data)
+        {
+            var dir = Path.GetDirectoryName(filename);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            File.WriteAllText(filename, data);   
+        }
         public void Delete(string filename) => File.Delete(filename);
     }
 }
