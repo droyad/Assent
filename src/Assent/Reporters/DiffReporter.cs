@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Assent.Reporters.DiffPrograms;
 
@@ -6,12 +7,26 @@ namespace Assent.Reporters
 {
     public class DiffReporter : IReporter
     {
-        public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms = new IDiffProgram[]
+
+        static DiffReporter()
         {
-            new BeyondCompareDiffProgram(),
-            new KDiff3DiffProgram(),
-            new XdiffDiffProgram() 
-        };
+
+#if NET45
+            var isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
+#else
+            var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
+            DefaultDiffPrograms = isWindows
+                ? new IDiffProgram[]
+                {
+                    new BeyondCompareDiffProgram(),
+                    new KDiff3DiffProgram(),
+                    new XdiffDiffProgram()
+                }
+                : new IDiffProgram[0];
+        }
+
+        public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms;
 
         private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
 
@@ -27,7 +42,7 @@ namespace Assent.Reporters
 
         public void Report(string receivedFile, string approvedFile)
         {
-            foreach(var program in _diffPrograms)
+            foreach (var program in _diffPrograms)
                 if (program.Launch(receivedFile, approvedFile))
                     return;
 
