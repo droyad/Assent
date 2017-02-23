@@ -16,12 +16,12 @@ or running `install-package Assent` from the NuGet tool window.
 In your test, do your usual setup and execution, but replace your assert
 line with:
 
-```
+```c#
 this.Assent("String To Assert")
 ```
 
 The behaviour can be customised by passing a `Configuration` object:
-```
+```c#
 var configuration = configuration.UsingExtension("json");
 this.Assent("String To Assert", configuration);
 ```
