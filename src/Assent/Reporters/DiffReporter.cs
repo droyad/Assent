@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Assent.Reporters.DiffPrograms;
 
@@ -7,23 +6,27 @@ namespace Assent.Reporters
 {
     public class DiffReporter : IReporter
     {
+#if NET45
+        internal static readonly bool IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
+#else
+        internal static readonly bool IsWindows = System.Runtime.InteropServices.RuntimeInformation
+            .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
+#endif
 
         static DiffReporter()
         {
-
-#if NET45
-            var isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
-#else
-            var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#endif
-            DefaultDiffPrograms = isWindows
+            DefaultDiffPrograms = IsWindows
                 ? new IDiffProgram[]
                 {
                     new BeyondCompareDiffProgram(),
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram()
                 }
-                : new IDiffProgram[0];
+                : new IDiffProgram[]
+                {
+                    new VsCodeDiffProgram(),
+                };
+
         }
 
         public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms;
