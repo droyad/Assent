@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,6 +8,16 @@ namespace Assent.Reporters.DiffPrograms
 {
     public abstract class DiffProgramBase : IDiffProgram
     {
+        protected static IReadOnlyList<string> WindowsProgramFilePaths => new[]
+            {
+                Environment.GetEnvironmentVariable("ProgramFiles"),
+                Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
+                Environment.GetEnvironmentVariable("ProgramW6432")
+            }
+            .Where(p => !string.IsNullOrWhiteSpace(p))
+            .Distinct()
+            .ToArray();
+
         public IReadOnlyList<string> SearchPaths { get; }
 
         protected DiffProgramBase(IReadOnlyList<string> searchPaths)

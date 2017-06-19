@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
@@ -7,23 +8,15 @@ namespace Assent.Reporters.DiffPrograms
     {
         static BeyondCompareDiffProgram()
         {
-            var programFiles = Environment.GetEnvironmentVariable("ProgramFiles");
-            var x86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-
-            var paths = new List<string>
-            {
-                $@"{programFiles}\Beyond Compare 4\BCompare.exe",
-                $@"{programFiles}\Beyond Compare 3\BCompare.exe"
-            };
-
-            if (!string.IsNullOrEmpty(x86))
-            {
-                paths.Add($@"{x86}\Beyond Compare 4\BCompare.exe");
-                paths.Add($@"{x86}\Beyond Compare 3\BCompare.exe");
-            }
-
-
-            DefaultSearchPaths = paths;
+            DefaultSearchPaths = WindowsProgramFilePaths
+                .SelectMany(p =>
+                    new[]
+                    {
+                        $@"{p}\Beyond Compare 4\BCompare.exe",
+                        $@"{p}\Beyond Compare 3\BCompare.exe"
+                    }
+                )
+                .ToArray();
         }
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
@@ -7,20 +8,9 @@ namespace Assent.Reporters.DiffPrograms
     {
         static P4MergeDiffProgram()
         {
-            var programFiles = Environment.GetEnvironmentVariable("ProgramFiles");
-            var x86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-
-            var paths = new List<string>
-            {
-                $@"{programFiles}\Perforce\p4merge.exe",
-            };
-
-            if (!string.IsNullOrEmpty(x86))
-            {
-                paths.Add($@"{x86}\Perforce\p4merge.exe");
-            }
-
-            DefaultSearchPaths = paths;
+            DefaultSearchPaths = WindowsProgramFilePaths
+                .Select(p => $@"{p}\Perforce\p4merge.exe")
+                .ToArray();
         }
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;

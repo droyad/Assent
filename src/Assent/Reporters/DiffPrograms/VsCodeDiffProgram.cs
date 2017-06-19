@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
@@ -10,13 +11,9 @@ namespace Assent.Reporters.DiffPrograms
             var paths = new List<string>();
             if (DiffReporter.IsWindows)
             {
-                var programFiles = Environment.GetEnvironmentVariable("ProgramFiles");
-                var x86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-                paths.Add($@"{programFiles}\Microsoft VS Code\Code.exe");
-                if (!String.IsNullOrEmpty(x86))
-                {
-                    paths.Add($@"{x86}\Microsoft VS Code\Code.exe");
-                }
+                DefaultSearchPaths = WindowsProgramFilePaths
+                    .Select(p => $@"{p}\Microsoft VS Code\Code.exe")
+                    .ToArray();
             }
             else
             {

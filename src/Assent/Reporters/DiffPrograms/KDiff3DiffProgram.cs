@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
@@ -7,20 +8,9 @@ namespace Assent.Reporters.DiffPrograms
     {
         static KDiff3DiffProgram()
         {
-            var programFiles = Environment.GetEnvironmentVariable("ProgramFiles");
-            var x86 = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-
-            var paths = new List<string>
-            {
-                $@"{programFiles}\KDiff3\KDiff3.exe",
-            };
-
-            if (!string.IsNullOrEmpty(x86))
-            {
-                paths.Add($@"{x86}\KDiff3\KDiff3.exe");
-            }
-
-            DefaultSearchPaths = paths;
+            DefaultSearchPaths = WindowsProgramFilePaths
+                .Select(p => $@"{p}\KDiff3\KDiff3.exe")
+                .ToArray();
         }
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;
