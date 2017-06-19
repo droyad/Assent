@@ -2,7 +2,6 @@
 // TOOLS
 //////////////////////////////////////////////////////////////////////
 #tool "nuget:?package=GitVersion.CommandLine&version=3.6.5"
-#addin "MagicChunks"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -18,18 +17,19 @@ var projectToPackage = "./src/Assent";
 
 var isContinuousIntegrationBuild = !BuildSystem.IsLocalBuild;
 
-var gitVersionInfo = GitVersion(new GitVersionSettings {
-    OutputType = GitVersionOutput.Json
-});
-
-var nugetVersion = gitVersionInfo.NuGetVersion;
-var cleanups = new List<Action>(); 
+GitVersion gitVersionInfo;
+string nugetVersion;
 
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
 Setup(context =>
 {
+    gitVersionInfo = GitVersion(new GitVersionSettings {
+        OutputType = GitVersionOutput.Json
+    });
+    nugetVersion = gitVersionInfo.NuGetVersion;
+
     Information("Building Assent v{0}", nugetVersion);
     if(BuildSystem.IsRunningOnAppVeyor)
         AppVeyor.UpdateBuildVersion(gitVersionInfo.NuGetVersion);
@@ -37,9 +37,6 @@ Setup(context =>
 
 Teardown(context =>
 {
-    foreach(var item in cleanups)
-        item();
-
     Information("Finished running tasks.");
 });
 
@@ -47,7 +44,7 @@ Teardown(context =>
 //  PRIVATE TASKS
 //////////////////////////////////////////////////////////////////////
 
-Task("__Clean")
+Task("Clean")
     .Does(() =>
 {
     CleanDirectory(artifactsDir);
@@ -55,76 +52,50 @@ Task("__Clean")
     CleanDirectories("./src/**/obj");
 });
 
-Task("__Restore")
-    .Does(() => DotNetCoreRestore());
+Task("Restore")
+    .Does(() => DotNetCoreRestore("."));
 
-Task("__UpdateProjectJsonVersion")
+
+Task("Build")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore")
     .Does(() =>
 {
-    foreach(var projectJson in GetFiles("**/project.json").Select(p => p.FullPath))
+    DotNetCoreBuild(".", new DotNetCoreBuildSettings
     {
-        RestoreFileOnCleanup(projectJson);
-        Information("Updating {0} version -> {1}", projectJson, nugetVersion);
-
-        TransformConfig(projectJson, projectJson, new TransformationCollection {
-            { "version", nugetVersion }
-        });
-    }
-});
-
-private void RestoreFileOnCleanup(string file)
-{
-    var contents = System.IO.File.ReadAllBytes(file);
-    cleanups.Add(() => {
-        Information("Restoring {0}", file);
-        System.IO.File.WriteAllBytes(file, contents);
-    });
-}
-
-
-Task("__Build")
-    .IsDependentOn("__Clean")
-    .IsDependentOn("__Restore")
-    .IsDependentOn("__UpdateProjectJsonVersion")
-    .Does(() =>
-{
-    DotNetCoreBuild("**/project.json", new DotNetCoreBuildSettings
-    {
-        Configuration = configuration
+        Configuration = configuration,
+        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
     });
 });
 
-Task("__Test")
-    .IsDependentOn("__Build")
+Task("Test")
+    .IsDependentOn("Build")
     .Does(() =>
 {
-    GetFiles("**/*Tests/project.json")
-        .ToList()
-        .ForEach(testProjectFile => 
+        DotNetCoreTest("./src/Assent.Tests/Assent.Tests.csproj", new DotNetCoreTestSettings
         {
-            DotNetCoreTest(testProjectFile.ToString(), new DotNetCoreTestSettings
-            {
-                Configuration = configuration
-            });
+            Configuration = configuration,
+            NoBuild = true,
+            ArgumentCustomization = args => args.Append("-l trx")
         });
 });
 
 
-Task("__Pack")
-    .IsDependentOn("__Build")
-    .IsDependentOn("__Test")
+Task("Pack")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
     .Does(() =>
 {
     DotNetCorePack(projectToPackage, new DotNetCorePackSettings
     {
         Configuration = configuration,
         OutputDirectory = artifactsDir,
-        NoBuild = true
+        ArgumentCustomization = args => args.Append($"/p:Version={nugetVersion}")
     });
 });
 
-Task("__PushPackages")
-    .IsDependentOn("__Pack")
+Task("PushPackages")
+    .IsDependentOn("Pack")
     .Does(() =>
 {
     var package = $"{artifactsDir}/Assent.{nugetVersion}.nupkg";
@@ -149,7 +120,7 @@ Task("__PushPackages")
 // TASKS
 //////////////////////////////////////////////////////////////////////
 Task("Default")
-    .IsDependentOn("__PushPackages");
+    .IsDependentOn("PushPackages");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

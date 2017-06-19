@@ -1,20 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{92E143F6-58EF-414E-A76F-62A01B36AC76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{67B90049-D707-44F7-A990-D58B189213C6}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Assent", "src\Assent\Assent.xproj", "{03C7B05D-0720-46CB-AABB-C018FADDE75E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assent", "src\Assent\Assent.csproj", "{03C7B05D-0720-46CB-AABB-C018FADDE75E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Assent.Tests", "src\Assent.Tests\Assent.Tests.xproj", "{4F562C19-6059-4752-917B-AF900110D681}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assent.Tests", "src\Assent.Tests\Assent.Tests.csproj", "{4F562C19-6059-4752-917B-AF900110D681}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sandbox", "src\Sandbox\Sandbox.xproj", "{EE3682A1-F257-4986-8F60-0364ED6A9C51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "src\Sandbox\Sandbox.csproj", "{EE3682A1-F257-4986-8F60-0364ED6A9C51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
