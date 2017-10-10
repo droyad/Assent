@@ -3,7 +3,7 @@
     /// <summary>
     /// Returns the specified name without modification
     /// </summary>
-    public class FixedNamer : INamer
+    public class FixedNamer
     {
         private readonly string _name;
 

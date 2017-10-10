@@ -7,7 +7,7 @@ namespace Assent.Namers
     /// An optional postfix can be specified.
     /// eg filename: `subdirectory/class.method.postfix`
     /// </summary>
-    public class SubdirectoryNamer : INamer
+    public class SubdirectoryNamer
     {
         private readonly string _subdirectory;
         private readonly string _postfix;

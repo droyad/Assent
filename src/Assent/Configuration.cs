@@ -7,7 +7,7 @@ namespace Assent
 {
     public interface IConfiguration<T>
     {
-        INamer Namer { get; }
+        GetName Namer { get; }
         IReporter Reporter { get; }
         T Extension { get; }
         IReaderWriter<T> ReaderWriter { get; }
@@ -25,7 +25,7 @@ namespace Assent
             Comparer = new DefaultStringComparer(true);
             Extension = "txt";
             ReaderWriter = new StringReaderWriter();
-            Namer = new DefaultNamer();
+            Namer = new DefaultNamer().GetName;
             Sanitiser = new NullSanitiser<string>();
             IsInteractive = !"true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
         }
@@ -41,7 +41,7 @@ namespace Assent
             IsInteractive = basedOn.IsInteractive;
         }
 
-        public INamer Namer { get; private set; }
+        public GetName Namer { get; private set; }
         public IReporter Reporter { get; private set; }
         public string Extension { get; private set; }
         public IReaderWriter<string> ReaderWriter { get; private set; }
@@ -50,7 +50,7 @@ namespace Assent
 
         public bool IsInteractive { get; private set; }
 
-        public Configuration UsingNamer(INamer namer)
+        public Configuration UsingNamer(GetName namer)
         {
             return new Configuration(this)
             {
@@ -62,7 +62,7 @@ namespace Assent
         {
             return new Configuration(this)
             {
-                Namer = new FixedNamer(name)
+                Namer = new FixedNamer(name).GetName
             };
         }
 

@@ -2,7 +2,7 @@
 
 namespace Assent.Namers
 {
-    public class DefaultNamer : INamer
+    public class DefaultNamer
     {
         public virtual string GetName(TestMetadata metadata)
         {
