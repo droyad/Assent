@@ -7,7 +7,7 @@ namespace Assent
 {
     public interface IConfiguration<T>
     {
-        GetName Namer { get; }
+        Func<TestMetadata, string> Namer { get; }
         IReporter Reporter { get; }
         T Extension { get; }
         IReaderWriter<T> ReaderWriter { get; }
@@ -41,7 +41,7 @@ namespace Assent
             IsInteractive = basedOn.IsInteractive;
         }
 
-        public GetName Namer { get; private set; }
+        public Func<TestMetadata, string> Namer { get; private set; }
         public IReporter Reporter { get; private set; }
         public string Extension { get; private set; }
         public IReaderWriter<string> ReaderWriter { get; private set; }
@@ -50,7 +50,7 @@ namespace Assent
 
         public bool IsInteractive { get; private set; }
 
-        public Configuration UsingNamer(GetName namer)
+        public Configuration UsingNamer(Func<TestMetadata, string> namer)
         {
             return new Configuration(this)
             {
