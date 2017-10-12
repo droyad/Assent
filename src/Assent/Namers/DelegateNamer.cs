@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Assent.Namers
 {
-    class DelegateNamer : INamer
+    public class DelegateNamer : INamer
     {
         readonly Func<TestMetadata, string> _f;
 
