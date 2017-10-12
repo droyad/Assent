@@ -7,6 +7,10 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <Description>Assent is a simple assertion library for long strings. By default it uses common diff tools to report on and resolve test failures.</Description>
+    <Authors>droyad</Authors>
+    <PackageProjectUrl>https://github.com/droyad/Assent</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/droyad/Assent</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
