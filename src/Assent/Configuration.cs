@@ -58,6 +58,14 @@ namespace Assent
             };
         }
 
+        public Configuration UsingNamer(Func<TestMetadata, string> namer)
+        {
+            return new Configuration(this)
+            {
+                Namer = new DelegateNamer(namer)
+            };
+        }
+
         public Configuration UsingFixedName(string name)
         {
             return new Configuration(this)
