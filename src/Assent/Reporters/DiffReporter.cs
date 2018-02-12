@@ -32,10 +32,11 @@ namespace Assent.Reporters
         public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms;
 
         private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
-
+        private readonly ConsoleReporter _consoleReporter;
 
         public DiffReporter() : this(DefaultDiffPrograms)
         {
+            _consoleReporter = new ConsoleReporter();
         }
 
         public DiffReporter(IReadOnlyList<IDiffProgram> diffPrograms)
@@ -49,7 +50,7 @@ namespace Assent.Reporters
                 if (program.Launch(receivedFile, approvedFile))
                     return;
 
-            throw new Exception("Could not find a diff program to use");
+            _consoleReporter.Report(receivedFile,approvedFile);
         }
     }
 }
