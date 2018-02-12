@@ -14,20 +14,21 @@
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.Linq" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0"/>
+    <PackageReference Include="System.Linq" Version="4.3.0"/>
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0"/>
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0"/>
+    <PackageReference Include="System.IO.FileSystem" Version="4.3.0"/>
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0"/>
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0"/>
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />  </ItemGroup>
+    <Reference Include="System"/>
+    <Reference Include="Microsoft.CSharp"/>
+  </ItemGroup>
 
 </Project>
