@@ -39,8 +39,18 @@ namespace Assent.Reporters.DiffPrograms
                 Console.WriteLine(line.Text);
             }
 
-            Console.WriteLine("The received file is different to the approved file. If this is expected, please update the approved file.");
             Console.ForegroundColor = originalForegroundColor;
+
+            Console.WriteLine("The received file is different to the approved file.");
+            Console.WriteLine("Do you want to update the approved file? [y/n]");
+            var answer = Console.ReadLine();
+            if (answer.ToLower() == "y" || answer.ToLower() == "yes"){
+                File.WriteAllText(approvedFile,receivedString);
+                Console.WriteLine("Updated approve file.");
+            }
+            else{
+                Console.WriteLine("Did not update approve file.");
+            }
             return true;
         }
     }
