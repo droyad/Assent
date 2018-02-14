@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assent;
+using Assent.Reporters;
 
 namespace Sandbox
 {
@@ -19,9 +20,9 @@ namespace Sandbox
             {
                 this.Assent("foobayr");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                Console.WriteLine(e);
             }
         }
     }

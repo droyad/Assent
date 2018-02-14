@@ -20,11 +20,13 @@ namespace Assent.Reporters
                 {
                     new BeyondCompareDiffProgram(),
                     new KDiff3DiffProgram(),
-                    new XdiffDiffProgram()
+                    new XdiffDiffProgram(),
+                    new ConsoleReporterProgram()
                 }
                 : new IDiffProgram[]
                 {
                     new VsCodeDiffProgram(),
+                    new ConsoleReporterProgram()
                 };
 
         }
@@ -32,7 +34,6 @@ namespace Assent.Reporters
         public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms;
 
         private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
-
 
         public DiffReporter() : this(DefaultDiffPrograms)
         {
@@ -49,7 +50,7 @@ namespace Assent.Reporters
                 if (program.Launch(receivedFile, approvedFile))
                     return;
 
-            throw new Exception("Could not find a diff program to use");
+             throw new Exception("Could not find a diff program to use");
         }
     }
 }
