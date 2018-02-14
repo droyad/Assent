@@ -18,7 +18,7 @@ namespace Sandbox
         {
             try
             {
-                this.Assent("foob3");
+                this.Assent("foobayr");
             }
             catch (Exception e)
             {
