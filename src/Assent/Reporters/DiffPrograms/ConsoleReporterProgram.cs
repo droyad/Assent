@@ -1,16 +1,18 @@
 using System;
 using System.IO;
+using Assent.Reporters.DiffPrograms;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
 
-namespace Assent.Reporters
+namespace Assent.Reporters.DiffPrograms
 {
-    public class ConsoleReporter : IReporter
+    public class ConsoleReporterProgram : IDiffProgram
     {
 
-        public void Report(string receivedFile, string approvedFile)
+        public bool Launch(string receivedFile, string approvedFile)
         {
+            var originalForegroundColor = Console.ForegroundColor;
             var receivedString = File.ReadAllText(receivedFile).Replace("\r\n", "\n");
             var approvedString = File.ReadAllText(approvedFile).Replace("\r\n", "\n");
             var diffBuilder = new InlineDiffBuilder(new Differ());
@@ -37,8 +39,9 @@ namespace Assent.Reporters
                 Console.WriteLine(line.Text);
             }
 
-            Console.WriteLine("Received file is different than approved file");
-            Console.WriteLine("Please change approved files if this is ok");
+            Console.WriteLine("The received file is different to the approved file. If this is expected, please update the approved file.");
+            Console.ForegroundColor = originalForegroundColor;
+            return true;
         }
     }
 }
