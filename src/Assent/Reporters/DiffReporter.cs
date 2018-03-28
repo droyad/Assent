@@ -20,11 +20,13 @@ namespace Assent.Reporters
                 {
                     new BeyondCompareDiffProgram(),
                     new KDiff3DiffProgram(),
-                    new XdiffDiffProgram()
+                    new XdiffDiffProgram(),
+                    new P4MergeDiffProgram(), 
+                    new VsCodeDiffProgram()
                 }
                 : new IDiffProgram[]
                 {
-                    new VsCodeDiffProgram(),
+                    new VsCodeDiffProgram()
                 };
 
         }
