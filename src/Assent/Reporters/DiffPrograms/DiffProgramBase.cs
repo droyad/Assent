@@ -12,7 +12,8 @@ namespace Assent.Reporters.DiffPrograms
             {
                 Environment.GetEnvironmentVariable("ProgramFiles"),
                 Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
-                Environment.GetEnvironmentVariable("ProgramW6432")
+                Environment.GetEnvironmentVariable("ProgramW6432"),
+                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "Programs")
             }
             .Where(p => !string.IsNullOrWhiteSpace(p))
             .Distinct()
