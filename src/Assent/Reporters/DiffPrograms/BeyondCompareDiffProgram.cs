@@ -8,15 +8,23 @@ namespace Assent.Reporters.DiffPrograms
     {
         static BeyondCompareDiffProgram()
         {
-            DefaultSearchPaths = WindowsProgramFilePaths
-                .SelectMany(p =>
-                    new[]
-                    {
-                        $@"{p}\Beyond Compare 4\BCompare.exe",
-                        $@"{p}\Beyond Compare 3\BCompare.exe"
-                    }
-                )
-                .ToArray();
+            var paths = new List<string>();
+            if (DiffReporter.IsWindows)
+            {
+                paths.AddRange(WindowsProgramFilePaths
+                    .SelectMany(p =>
+                        new[]
+                        {
+                            $@"{p}\Beyond Compare 4\BCompare.exe",
+                            $@"{p}\Beyond Compare 3\BCompare.exe"
+                        })
+                    .ToArray());
+            }
+            else
+            {
+                paths.Add("/usr/bin/bcompare");
+            }
+            DefaultSearchPaths = paths;
         }
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;

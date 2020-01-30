@@ -26,6 +26,7 @@ namespace Assent.Reporters
                 }
                 : new IDiffProgram[]
                 {
+                    new BeyondCompareDiffProgram(),
                     new VsCodeDiffProgram()
                 };
 
