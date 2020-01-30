@@ -18,6 +18,7 @@ namespace Assent.Reporters.DiffPrograms
             else
             {
                 paths.Add("/usr/local/bin/code");
+                paths.Add("/snap/bin/code");
             }
             DefaultSearchPaths = paths;
         }
