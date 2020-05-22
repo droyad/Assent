@@ -20,6 +20,7 @@ namespace Assent.Reporters.DiffPrograms
                 paths.Add("/usr/local/bin/code");
                 paths.Add("/usr/bin/code");
                 paths.Add("/snap/bin/code");
+                paths.Add("/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code");
             }
             DefaultSearchPaths = paths;
         }
