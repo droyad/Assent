@@ -1,6 +1,7 @@
 # Assent
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dnnn06mquuudqpkm/branch/master?svg=true)](https://ci.appveyor.com/project/droyad/assent/branch/master)
+[![NuGet](https://img.shields.io/nuget/v/Assent)](https://www.nuget.org/packages/Assent)
 
 Assent is a simple assertion library for long strings. By default it 
 uses common diff tools to report on and resolve test failures.
