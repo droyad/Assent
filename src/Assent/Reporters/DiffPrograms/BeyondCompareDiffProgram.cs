@@ -42,7 +42,8 @@ namespace Assent.Reporters.DiffPrograms
         protected override string CreateProcessStartArgs(string receivedFile, string approvedFile)
         {
             var defaultArgs = base.CreateProcessStartArgs(receivedFile, approvedFile);
-            return $"{defaultArgs} /solo";
+            var argChar = DiffReporter.IsWindows ? "/" : "-";
+            return $"{defaultArgs} {argChar}solo" ;
         }
     }
 }
