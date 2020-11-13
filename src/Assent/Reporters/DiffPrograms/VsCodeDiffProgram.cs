@@ -39,7 +39,7 @@ namespace Assent.Reporters.DiffPrograms
 
         protected override string CreateProcessStartArgs(string receivedFile, string approvedFile)
         {
-            return $"--diff --wait --new-window \"{receivedFile}\" \"{approvedFile}\"";
+            return $"--diff --wait --new-window \"{approvedFile}\" \"{receivedFile}\"";
         }
     }
 }
