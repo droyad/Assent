@@ -19,9 +19,10 @@ namespace Assent.Reporters
                 ? new IDiffProgram[]
                 {
                     new BeyondCompareDiffProgram(),
+                    new WinMergeDiffProgram(),
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram(),
-                    new P4MergeDiffProgram(), 
+                    new P4MergeDiffProgram(),
                     new VsCodeDiffProgram()
                 }
                 : new IDiffProgram[]
