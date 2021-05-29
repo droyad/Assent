@@ -1,9 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45;netstandard2.0</TargetFrameworks>
-    <AssemblyName>Assent</AssemblyName>
-    <PackageId>Assent</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -22,7 +20,7 @@
     <PackageReference Include="System.IO.FileSystem" Version="4.3.0"/>
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0"/>
   </ItemGroup>
-  
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0"/>
   </ItemGroup>
