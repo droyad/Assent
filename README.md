@@ -23,7 +23,7 @@ this.Assent("String To Assert")
 
 The behaviour can be customised by passing a `Configuration` object:
 ```c#
-var configuration = configuration.UsingExtension("json");
+var configuration = new Configuration().UsingExtension("json");
 this.Assent("String To Assert", configuration);
 ```
 
