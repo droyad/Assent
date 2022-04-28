@@ -9,6 +9,8 @@ namespace Assent
     {
         INamer Namer { get; }
         IReporter Reporter { get; }
+        T ApprovalFileNameSuffix { get; }
+        T ReceivedFileNameSuffix { get; }
         T Extension { get; }
         IReaderWriter<T> ReaderWriter { get; }
         IComparer<T> Comparer { get; }
@@ -24,6 +26,8 @@ namespace Assent
             Reporter = new DiffReporter();
             Comparer = new DefaultStringComparer(true);
             Extension = "txt";
+            ApprovalFileNameSuffix = ".approved";
+            ReceivedFileNameSuffix = ".received";
             ReaderWriter = new StringReaderWriter();
             Namer = new DefaultNamer();
             Sanitiser = new NullSanitiser<string>();
@@ -36,6 +40,8 @@ namespace Assent
             Comparer = basedOn.Comparer;
             Reporter = basedOn.Reporter;
             Extension = basedOn.Extension;
+            ApprovalFileNameSuffix = basedOn.ApprovalFileNameSuffix;
+            ReceivedFileNameSuffix = basedOn.ReceivedFileNameSuffix;
             ReaderWriter = basedOn.ReaderWriter;
             Sanitiser = basedOn.Sanitiser;
             IsInteractive = basedOn.IsInteractive;
@@ -44,6 +50,8 @@ namespace Assent
         public INamer Namer { get; private set; }
         public IReporter Reporter { get; private set; }
         public string Extension { get; private set; }
+        public string ApprovalFileNameSuffix { get; private set; }
+        public string ReceivedFileNameSuffix { get; private set; }
         public IReaderWriter<string> ReaderWriter { get; private set; }
         public IComparer<string> Comparer { get; private set; }
         public ISanitiser<string> Sanitiser { get; private set; }
@@ -63,6 +71,22 @@ namespace Assent
             return new Configuration(this)
             {
                 Namer = new DelegateNamer(namer)
+            };
+        }
+        
+        public Configuration UsingApprovalFileNameSuffix(string approvalFileNameSuffix)
+        {
+            return new Configuration(this)
+            {
+                ApprovalFileNameSuffix = approvalFileNameSuffix
+            };
+        }
+        
+        public Configuration UsingReceivedFileNameSuffix(string receivedFileNameSuffix)
+        {
+            return new Configuration(this)
+            {
+                ReceivedFileNameSuffix = receivedFileNameSuffix
             };
         }
 
