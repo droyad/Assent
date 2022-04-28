@@ -8,8 +8,8 @@ namespace Assent.Tests.EndToEnd
     public class CustomSuffixScenario : BaseScenario
     {
         private Action _action;
-        private readonly string _receivedPath = Path.Join(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.reçu.txt");
-        private readonly string _approvedPath = Path.Join(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.approuvé.txt");
+        private readonly string _receivedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.reçu.txt");
+        private readonly string _approvedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.approuvé.txt");
 
         public void AndGivenCustomApprovalAndReceivedSuffixes()
         {
@@ -17,7 +17,7 @@ namespace Assent.Tests.EndToEnd
                 .UsingApprovalFileNameSuffix(".approuvé")
                 .UsingReceivedFileNameSuffix(".reçu");
         }
-        
+
         public void AndGivenTheApprovedFileMatches()
         {
             ReaderWriter.Files[_approvedPath] = "Foo";
