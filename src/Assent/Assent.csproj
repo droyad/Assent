@@ -12,7 +12,15 @@
     <PackageProjectUrl>https://github.com/droyad/Assent</PackageProjectUrl>
     <RepositoryUrl>https://github.com/droyad/Assent</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/droyad/Assent/blob/master/LICENCE.md</PackageLicenseUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.0"/>
