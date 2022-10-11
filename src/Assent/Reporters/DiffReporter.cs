@@ -18,7 +18,8 @@ namespace Assent.Reporters
             DefaultDiffPrograms = IsWindows
                 ? new IDiffProgram[]
                 {
-                    new BeyondCompareDiffProgram(),
+                    new EnvironmentVariableDiffProgram(),
+                   // new BeyondCompareDiffProgram(),
                     new WinMergeDiffProgram(),
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram(),
@@ -27,7 +28,8 @@ namespace Assent.Reporters
                 }
                 : new IDiffProgram[]
                 {
-                    new BeyondCompareDiffProgram(),
+                    new EnvironmentVariableDiffProgram(),
+                  //  new BeyondCompareDiffProgram(),
                     new VsCodeDiffProgram()
                 };
 
