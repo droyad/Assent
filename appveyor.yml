@@ -1,4 +1,4 @@
-image: Ubuntu
+image: Visual Studio 2022
 version: '{build}'
 build_script:
 - cmd: build.cmd
