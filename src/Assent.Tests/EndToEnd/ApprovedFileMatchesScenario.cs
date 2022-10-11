@@ -22,7 +22,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnExceptionIsNotThrown()
         {
-            _action.ShouldNotThrow();
+            _action.Should().NotThrow();
         }
 
         public void AndThenTheRecievedFileIsNotWritten()

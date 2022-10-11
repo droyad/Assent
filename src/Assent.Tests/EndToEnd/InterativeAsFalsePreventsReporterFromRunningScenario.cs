@@ -27,7 +27,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnAssentExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentFailedException>().WithMessage("Strings differ at 0.\r\nReceived:Foo\r\nApproved:Bar");
+            _action.Should().Throw<AssentFailedException>().WithMessage("Strings differ at 0.\r\nReceived:Foo\r\nApproved:Bar");
         }
 
         public void AndThenTheRecievedFileIsWritten()
