@@ -1,3 +1,4 @@
+image: Ubuntu
 version: '{build}'
 build_script:
 - cmd: build.cmd
