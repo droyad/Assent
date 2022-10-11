@@ -21,7 +21,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenAnAssentExceptionIsThrown()
         {
-            _action.ShouldThrow<AssentApprovedFileNotFoundException>();
+            _action.Should().Throw<AssentApprovedFileNotFoundException>();
         }
 
         public void AndThenTheRecievedFileIsNotWritten()

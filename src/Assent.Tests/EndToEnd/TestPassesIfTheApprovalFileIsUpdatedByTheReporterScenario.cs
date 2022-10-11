@@ -28,7 +28,7 @@ namespace Assent.Tests.EndToEnd
 
         public void ThenNoExceptionIsThrown()
         {
-            _action.ShouldNotThrow();
+            _action.Should().NotThrow();
         }
     }
 }
