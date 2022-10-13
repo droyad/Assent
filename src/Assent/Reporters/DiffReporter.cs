@@ -19,7 +19,7 @@ namespace Assent.Reporters
                 ? new IDiffProgram[]
                 {
                     new EnvironmentVariableDiffProgram(),
-                   // new BeyondCompareDiffProgram(),
+                    new BeyondCompareDiffProgram(),
                     new WinMergeDiffProgram(),
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram(),
@@ -29,7 +29,7 @@ namespace Assent.Reporters
                 : new IDiffProgram[]
                 {
                     new EnvironmentVariableDiffProgram(),
-                  //  new BeyondCompareDiffProgram(),
+                    new BeyondCompareDiffProgram(),
                     new VsCodeDiffProgram()
                 };
 
