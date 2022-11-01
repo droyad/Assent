@@ -24,13 +24,15 @@ namespace Assent.Reporters
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram(),
                     new P4MergeDiffProgram(),
-                    new VsCodeDiffProgram()
+                    new VsCodeDiffProgram(),
+                    new MeldDiffProgram()
                 }
                 : new IDiffProgram[]
                 {
                     new EnvironmentVariableDiffProgram(),
                     new BeyondCompareDiffProgram(),
-                    new VsCodeDiffProgram()
+                    new VsCodeDiffProgram(),
+                    new MeldDiffProgram()
                 };
 
         }
