@@ -24,7 +24,8 @@ public class RiderDiffProgram : DiffProgramBase
 
     public RiderDiffProgram() : base(DefaultSearchPaths) { }
 
-    protected override string CreateProcessStartArgs(string receivedFile, string approvedFile) => $"\"diff\" \"{receivedFile}\" \"{approvedFile}\"";
+    protected override string CreateProcessStartArgs(string receivedFile, string approvedFile) =>
+        $"\"diff\" \"{receivedFile}\" \"{approvedFile}\"";
 
     protected static string GetRiderExePathInChannel(string channelDirectory)
     {
