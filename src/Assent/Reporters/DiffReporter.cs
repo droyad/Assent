@@ -24,6 +24,7 @@ namespace Assent.Reporters
                     new KDiff3DiffProgram(),
                     new XdiffDiffProgram(),
                     new P4MergeDiffProgram(),
+                    new RiderDiffProgram(),
                     new VsCodeDiffProgram(),
                     new MeldDiffProgram()
                 }
