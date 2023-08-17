@@ -24,6 +24,7 @@ namespace Assent.Reporters.DiffPrograms
             {
                 paths.Add("/usr/bin/bcompare");
                 paths.Add("/usr/local/bin/bcompare");
+                paths.Add("/opt/homebrew/bin/bcompare");
             }
             DefaultSearchPaths = paths;
         }
