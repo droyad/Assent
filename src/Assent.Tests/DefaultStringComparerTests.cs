@@ -8,11 +8,10 @@ namespace Assent.Tests
         [Test]
         public void LineEndingDifferencesResultInAFail()
         {
-            new DefaultStringComparer(false)
-                .Compare("A\r\nb", "A\nb")
-                .Passed
-                .Should()
-                .BeFalse();
+            var compareResult = new DefaultStringComparer(false)
+                .Compare("A\r\nb\nc", "A\nb\r\nc");
+            compareResult.Passed.Should().BeFalse();
+            compareResult.Error.Should().Contain("Strings differ only by line endings");
         }
 
         [Test]
@@ -23,6 +22,26 @@ namespace Assent.Tests
                 .Passed
                 .Should()
                 .BeTrue();
+        }
+        
+        [Test]
+        public void OneFileMissingNewLineAtEndOfFileResultInSuccessIfNormaliseLineEndingsIsTrue()
+        {
+            new DefaultStringComparer(true)
+                .Compare("A\nb\nc\n", "A\nb\nc")
+                .Passed
+                .Should()
+                .BeTrue();
+        }
+        
+        [Test]
+        public void OneFileMissingNewLineAtEndOfFileResultInAFail()
+        {
+            new DefaultStringComparer(false)
+                .Compare("A\nb\nc\n", "A\nb\nc")
+                .Passed
+                .Should()
+                .BeFalse();
         }
     }
 }
