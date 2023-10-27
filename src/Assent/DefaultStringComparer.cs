@@ -24,13 +24,21 @@ namespace Assent
 
             if (_normaliseLineEndings)
             {
-                received = received.Replace("\r\n", "\n");
-                approved = approved.Replace("\r\n", "\n");
+                received = received.Replace("\r\n", "\n").TrimEnd('\n');
+                approved = approved.Replace("\r\n", "\n").TrimEnd('\n');
             }
 
             if (received == approved)
                 return CompareResult.Pass();
 
+            if (!_normaliseLineEndings)
+            {
+                var normalisedReceived = received.Replace("\r\n", "\n").TrimEnd('\n');
+                var normalisedApproved = approved.Replace("\r\n", "\n").TrimEnd('\n');
+                if (normalisedReceived == normalisedApproved)
+                    return CompareResult.Fail($"Strings differ only by line endings. Enable 'NormaliseLineEndings' to ignore line ending differences.");
+            }
+            
             var length = Math.Min(approved.Length, received.Length);
             for (var x = 0; x < length; x++)
                 if (approved[x] != received[x])
