@@ -15,6 +15,7 @@ namespace Assent.Reporters.DiffPrograms
                     .SelectMany(p =>
                         new[]
                         {
+                            $@"{p}\Beyond Compare 5\BCompare.exe",
                             $@"{p}\Beyond Compare 4\BCompare.exe",
                             $@"{p}\Beyond Compare 3\BCompare.exe"
                         })
