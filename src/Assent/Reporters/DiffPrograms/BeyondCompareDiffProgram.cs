@@ -15,17 +15,17 @@ namespace Assent.Reporters.DiffPrograms
                     .SelectMany(p =>
                         new[]
                         {
-                            $@"{p}\Beyond Compare 5\BCompare.exe",
-                            $@"{p}\Beyond Compare 4\BCompare.exe",
-                            $@"{p}\Beyond Compare 3\BCompare.exe"
+                            $@"{p}\Beyond Compare 5\BComp.exe",
+                            $@"{p}\Beyond Compare 4\BComp.com",
+                            $@"{p}\Beyond Compare 3\BComp.com"
                         })
                     .ToArray());
             }
             else
             {
-                paths.Add("/usr/bin/bcompare");
-                paths.Add("/usr/local/bin/bcompare");
-                paths.Add("/opt/homebrew/bin/bcompare");
+                paths.Add("/usr/bin/bcomp");
+                paths.Add("/usr/local/bin/bcomp");
+                paths.Add("/opt/homebrew/bin/bcomp");
             }
             DefaultSearchPaths = paths;
         }
@@ -46,7 +46,7 @@ namespace Assent.Reporters.DiffPrograms
         {
             var defaultArgs = base.CreateProcessStartArgs(receivedFile, approvedFile);
             var argChar = DiffReporter.IsWindows ? "/" : "-";
-            return $"{defaultArgs} {argChar}solo" ;
+            return $"{defaultArgs} {argChar}solo";
         }
     }
 }
