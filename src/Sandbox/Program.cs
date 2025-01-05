@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using Assent;
 
 namespace Sandbox
@@ -10,19 +8,33 @@ namespace Sandbox
     {
         public static void Main(string[] args)
         {
-            new Program().Run();
+            var prog = new Program();
+            
+            var t1 = new Thread(() => prog.Run(1));
+            var t2 = new Thread(() => prog.Run(2));
+            
+            t1.Start();
+            Thread.Sleep(2000);
+            t2.Start();
+
+            t1.Join();
+            t2.Join();
+            
+            Console.WriteLine("All Done");
         }
 
-        private void Run()
+        private void Run(int n)
         {
             try
             {
-                this.Assent("foobayr");
+                this.Assent($"Thread {n}", testName: n.ToString());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Console.WriteLine($"Thread {n} Exception: {ex.Message}");
             }
+            
+            Console.WriteLine($"Thread {n} done");
         }
     }
 }
