@@ -12,11 +12,8 @@ namespace Assent
         public void Write(string filename, string data)
         {
             var dir = Path.GetDirectoryName(filename);
-            if (dir is not null)
-            {
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-            }
+            if (dir is not null && !Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
 
             File.WriteAllText(filename, data);   
         }
