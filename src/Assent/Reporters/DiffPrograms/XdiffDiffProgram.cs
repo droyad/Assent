@@ -21,7 +21,7 @@ namespace Assent.Reporters.DiffPrograms
                 return false;
 
             var process = Process.Start(new ProcessStartInfo(InstallPath, $"-s=\"{approvedFile}\" -d=\"{receivedFile}\""));
-            process.WaitForExit();
+            process?.WaitForExit();
             return true;
         }
     }

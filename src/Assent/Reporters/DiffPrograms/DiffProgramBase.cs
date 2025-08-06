@@ -13,7 +13,7 @@ namespace Assent.Reporters.DiffPrograms
                 Environment.GetEnvironmentVariable("ProgramFiles"),
                 Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
                 Environment.GetEnvironmentVariable("ProgramW6432"),
-                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "Programs")
+                Environment.GetEnvironmentVariable("LocalAppData") is string localAppData ? Path.Combine(localAppData, "Programs") : null
             }
             .Where(p => !string.IsNullOrWhiteSpace(p))
             .Distinct()
@@ -40,7 +40,7 @@ namespace Assent.Reporters.DiffPrograms
 
             var process = Process.Start(new ProcessStartInfo(
                 path, CreateProcessStartArgs(receivedFile, approvedFile)));
-            process.WaitForExit();
+            process?.WaitForExit();
             return true;
         }
     }

@@ -17,7 +17,7 @@ namespace Assent.Reporters.DiffPrograms
             var args = string.Format(argumentFormat, receivedFile, approvedFile);
             
             var process = Process.Start(new ProcessStartInfo(diffProgram, args));
-            process.WaitForExit();
+            process?.WaitForExit();
             return true;
         }
     }
