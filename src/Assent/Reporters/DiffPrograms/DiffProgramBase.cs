@@ -8,16 +8,17 @@ namespace Assent.Reporters.DiffPrograms
 {
     public abstract class DiffProgramBase : IDiffProgram
     {
-        protected static IReadOnlyList<string> WindowsProgramFilePaths => new[]
-            {
-                Environment.GetEnvironmentVariable("ProgramFiles"),
-                Environment.GetEnvironmentVariable("ProgramFiles(x86)"),
-                Environment.GetEnvironmentVariable("ProgramW6432"),
-                Environment.GetEnvironmentVariable("LocalAppData") is string localAppData ? Path.Combine(localAppData, "Programs") : null
-            }
-            .Where(p => !string.IsNullOrWhiteSpace(p))
-            .Distinct()
-            .ToArray();
+        protected static IReadOnlyList<string> WindowsProgramFilePaths()
+        {
+            var result = new List<string>();
+            
+            if (DirPath.TryGetFromEnvironment("ProgramFiles", out var pf)) result.Add(pf);
+            if (DirPath.TryGetFromEnvironment("ProgramFiles(x86)", out var pf86)) result.Add(pf86);
+            if (DirPath.TryGetFromEnvironment("ProgramW6432", out var pfw64)) result.Add(pfw64);
+            if (DirPath.TryGetFromEnvironment("LocalAppData", new[] { "Programs" }, out var appDataPrograms)) result.Add(appDataPrograms);
+
+            return result.Distinct().ToList();
+        }
 
         public IReadOnlyList<string> SearchPaths { get; }
 

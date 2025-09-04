@@ -8,7 +8,7 @@ namespace Assent.Reporters.DiffPrograms
     {
         static KDiff3DiffProgram()
         {
-            DefaultSearchPaths = WindowsProgramFilePaths
+            DefaultSearchPaths = WindowsProgramFilePaths()
                 .Select(p => $@"{p}\KDiff3\KDiff3.exe")
                 .ToArray();
         }

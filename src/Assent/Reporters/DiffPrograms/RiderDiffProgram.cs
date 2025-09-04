@@ -12,17 +12,18 @@ public class RiderDiffProgram : DiffProgramBase
 
     static RiderDiffProgram()
     {
-        var riderChannelsDirectory = Environment.GetEnvironmentVariable("LocalAppData") + "\\JetBrains\\Toolbox\\apps\\Rider\\";
-        if (!Directory.Exists(riderChannelsDirectory))
+        if (!DirPath.TryGetFromEnvironment("LocalAppData", new[] { "JetBrains", "Toolbox", "apps", "Rider" }, out var riderChannelsDirectory))
         {
-            DefaultSearchPaths = new List<string>();
+            DefaultSearchPaths = Array.Empty<string>();
             return;
         }
 
         DefaultSearchPaths = Directory.GetDirectories(riderChannelsDirectory).Select(GetRiderExePathInChannel).ToList();
     }
 
-    public RiderDiffProgram() : base(DefaultSearchPaths) { }
+    public RiderDiffProgram() : base(DefaultSearchPaths)
+    {
+    }
 
     protected override string CreateProcessStartArgs(string receivedFile, string approvedFile) =>
         $"\"diff\" \"{receivedFile}\" \"{approvedFile}\"";

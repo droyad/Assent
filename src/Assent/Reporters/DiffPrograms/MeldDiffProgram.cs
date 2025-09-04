@@ -12,7 +12,7 @@ public class MeldDiffProgram : DiffProgramBase
         var paths = new List<string>();
         if (DiffReporter.IsWindows)
         {
-            paths.AddRange(WindowsProgramFilePaths
+            paths.AddRange(WindowsProgramFilePaths()
                 .Select(p => $@"{p}\Meld\Meld.exe")
                 .ToArray());
         }
