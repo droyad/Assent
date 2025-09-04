@@ -7,7 +7,7 @@ namespace Assent.Reporters.DiffPrograms
     {
         static WinMergeDiffProgram()
         {
-            DefaultSearchPaths = WindowsProgramFilePaths
+            DefaultSearchPaths = WindowsProgramFilePaths()
                 .Select(p => $@"{p}\WinMerge\WinMergeU.exe")
                 .ToArray();
         }
