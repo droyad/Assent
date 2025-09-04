@@ -13,11 +13,13 @@ namespace Assent.Reporters.DiffPrograms
             var result = new List<string>();
             
             if (DirPath.TryGetFromEnvironment("ProgramFiles", out var pf)) result.Add(pf);
-            if (DirPath.TryGetFromEnvironment("ProgramFiles(x86)", out var pf86)) result.Add(pf86);
-            if (DirPath.TryGetFromEnvironment("ProgramW6432", out var pfw64)) result.Add(pfw64);
+            
+            if (DirPath.TryGetFromEnvironment("ProgramFiles(x86)", out var pf86) && !result.Contains(pf86)) result.Add(pf86);
+            if (DirPath.TryGetFromEnvironment("ProgramW6432", out var pfw64) && !result.Contains(pfw64)) result.Add(pfw64);
+            
             if (DirPath.TryGetFromEnvironment("LocalAppData", new[] { "Programs" }, out var appDataPrograms)) result.Add(appDataPrograms);
 
-            return result.Distinct().ToList();
+            return result;
         }
 
         public IReadOnlyList<string> SearchPaths { get; }
