@@ -9,8 +9,15 @@ namespace Assent.Reporters.DiffPrograms
     {
         static XdiffDiffProgram()
         {
-            var appData = Environment.GetEnvironmentVariable("LocalAppData");
-            InstallPath = Path.Combine(appData, "semanticmerge\\mergetool.exe");
+            var semanticMergeDir = DirPath.GetFromEnvironmentOrNull("LocalAppData", "semanticmerge");
+            if (semanticMergeDir != null)
+            {
+                InstallPath = Path.Combine(semanticMergeDir, "mergetool.exe");
+            }
+            else
+            {
+                InstallPath = ""; // File.Exists always returns false for empty-string
+            }
         }
 
         public static readonly string InstallPath;

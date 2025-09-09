@@ -8,7 +8,7 @@ namespace Assent.Reporters.DiffPrograms
     {
         static P4MergeDiffProgram()
         {
-            DefaultSearchPaths = WindowsProgramFilePaths
+            DefaultSearchPaths = WindowsProgramFilePaths()
                 .Select(p => $@"{p}\Perforce\p4merge.exe")
                 .ToArray();
         }

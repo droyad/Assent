@@ -11,7 +11,7 @@ namespace Assent.Reporters.DiffPrograms
             var paths = new List<string>();
             if (DiffReporter.IsWindows)
             {
-                paths.AddRange(WindowsProgramFilePaths
+                paths.AddRange(WindowsProgramFilePaths()
                     .Select(p => $@"{p}\Microsoft VS Code\Code.exe")
                     .ToArray());
             }
