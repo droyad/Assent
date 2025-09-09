@@ -1,7 +1,6 @@
-﻿namespace Assent.Reporters.DiffPrograms
+﻿namespace Assent.Reporters.DiffPrograms;
+
+public interface IDiffProgram
 {
-    public interface IDiffProgram
-    {
-        bool Launch(string receivedFile, string approvedFile);
-    }
+    bool Launch(string receivedFile, string approvedFile);
 }

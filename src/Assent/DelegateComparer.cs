@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Assent
+namespace Assent;
+
+public class DelegateComparer<T>(Func<T, T, CompareResult> comparer) : IComparer<T>
 {
-    public class DelegateComparer<T>(Func<T, T, CompareResult> comparer) : IComparer<T>
-    {
-        public CompareResult Compare(T recieved, T approved) => comparer(recieved, approved);
-    }
+    public CompareResult Compare(T recieved, T approved) => comparer(recieved, approved);
 }

@@ -2,35 +2,34 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Assent.Tests.Stubs
+namespace Assent.Tests.Stubs;
+
+public class StubReaderWriter<T> : IReaderWriter<T>
 {
-    public class StubReaderWriter<T> : IReaderWriter<T>
+    public Dictionary<string, T> Files { get; } = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+    public HashSet<string> Deleted { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+    public bool Exists(string filename)
     {
-        public Dictionary<string, T> Files { get; } = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
-        public HashSet<string> Deleted { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        return Files.ContainsKey(filename);
+    }
 
-        public bool Exists(string filename)
-        {
-            return Files.ContainsKey(filename);
-        }
+    public T Read(string filename)
+    {
+        if (Deleted.Contains(filename))
+            throw new FileNotFoundException();
 
-        public T Read(string filename)
-        {
-            if (Deleted.Contains(filename))
-                throw new FileNotFoundException();
+        return Files[filename];
+    }
 
-            return Files[filename];
-        }
+    public void Write(string filename, T data)
+    {
+        Deleted.Remove(filename);
+        Files[filename] = data;
+    }
 
-        public void Write(string filename, T data)
-        {
-            Deleted.Remove(filename);
-            Files[filename] = data;
-        }
-
-        public void Delete(string filename)
-        {
-            Deleted.Add(filename);
-        }
+    public void Delete(string filename)
+    {
+        Deleted.Add(filename);
     }
 }

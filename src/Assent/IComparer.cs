@@ -1,7 +1,6 @@
-﻿namespace Assent
+﻿namespace Assent;
+
+public interface IComparer<in TData>
 {
-    public interface IComparer<in TData>
-    {
-        CompareResult Compare(TData recieved, TData approved);
-    }
+    CompareResult Compare(TData recieved, TData approved);
 }

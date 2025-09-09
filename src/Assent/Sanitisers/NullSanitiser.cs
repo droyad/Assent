@@ -1,10 +1,9 @@
-﻿namespace Assent.Sanitisers
+﻿namespace Assent.Sanitisers;
+
+public class NullSanitiser<T> : ISanitiser<T>
 {
-    public class NullSanitiser<T> : ISanitiser<T>
+    public T Sanatise(T recieved)
     {
-        public T Sanatise(T recieved)
-        {
-            return recieved;
-        }
+        return recieved;
     }
 }

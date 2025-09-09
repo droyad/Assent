@@ -1,7 +1,6 @@
-﻿namespace Assent
+﻿namespace Assent;
+
+public interface ISanitiser<T>
 {
-    public interface ISanitiser<T>
-    {
-        T Sanatise(T recieved);
-    }
+    T Sanatise(T recieved);
 }
