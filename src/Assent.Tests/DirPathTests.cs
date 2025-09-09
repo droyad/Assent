@@ -12,44 +12,40 @@ public static class DirPathTests
         [Test]
         public void SuccessWithValueIfEnvVarSetAndDirExists()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", [], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", [],
                 getEnvironmentVariable: _ => "localAppDataFolder",
                 directoryExists: _ => true);
 
-            result.Should().BeTrue();
             value.Should().Be("localAppDataFolder");
         }
 
         [Test]
         public void FailIfEnvVarNotSet()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", [], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", [],
                 getEnvironmentVariable: _ => null,
                 directoryExists: _ => throw new InvalidOperationException("should not get here"));
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
 
         [Test]
         public void FailIfEnvVarIsEmpty()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", [], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", [],
                 getEnvironmentVariable: _ => "",
                 directoryExists: _ => throw new InvalidOperationException("should not get here"));
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
 
         [Test]
         public void FailIfEnvVarSetAndDirDoesNotExist()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", [], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", [],
                 getEnvironmentVariable: _ => "localAppDataFolder",
                 directoryExists: _ => false);
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
     }
@@ -59,40 +55,37 @@ public static class DirPathTests
         [Test]
         public void SuccessWithValueIfEnvVarSetAndDirExists()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", ["foo", "bar"], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", ["foo", "bar"],
                 getEnvironmentVariable: _ => "localAppDataFolder",
                 directoryExists: _ => true);
 
-            result.Should().BeTrue();
             value.Should().Be(Path.Combine("localAppDataFolder", "foo", "bar"));
         }
 
         [Test]
         public void FailIfEnvVarNotSet()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", ["foo", "bar"], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", ["foo", "bar"],
                 getEnvironmentVariable: _ => null,
                 directoryExists: _ => throw new InvalidOperationException("should not get here"));
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
 
         [Test]
         public void FailIfEnvVarIsEmpty()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", ["foo", "bar"], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", ["foo", "bar"],
                 getEnvironmentVariable: _ => "",
                 directoryExists: _ => throw new InvalidOperationException("should not get here"));
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
 
         [Test]
         public void FailIfEnvVarSetAndDirDoesNotExist()
         {
-            var result = DirPath.TryGetFromEnvironment("LOCALAPPDATA", ["foo", "bar"], out var value,
+            var value = DirPath.GetFromEnvironmentOrNull("LOCALAPPDATA", ["foo", "bar"],
                 getEnvironmentVariable: _ => "localAppDataFolder",
                 directoryExists: d =>
                 {
@@ -101,7 +94,6 @@ public static class DirPathTests
                     return false;
                 });
 
-            result.Should().BeFalse();
             value.Should().BeNull();
         }
     }

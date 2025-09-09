@@ -10,16 +10,15 @@ namespace Assent.Reporters.DiffPrograms
     {
         protected static IReadOnlyList<string> WindowsProgramFilePaths()
         {
-            var result = new List<string>();
-            
-            if (DirPath.TryGetFromEnvironment("ProgramFiles", out var pf)) result.Add(pf);
-            
-            if (DirPath.TryGetFromEnvironment("ProgramFiles(x86)", out var pf86) && !result.Contains(pf86)) result.Add(pf86);
-            if (DirPath.TryGetFromEnvironment("ProgramW6432", out var pfw64) && !result.Contains(pfw64)) result.Add(pfw64);
-            
-            if (DirPath.TryGetFromEnvironment("LocalAppData", new[] { "Programs" }, out var appDataPrograms)) result.Add(appDataPrograms);
+            var result = new[]
+            {
+                DirPath.GetFromEnvironmentOrNull("ProgramFiles"),
+                DirPath.GetFromEnvironmentOrNull("ProgramFiles(x86)"),
+                DirPath.GetFromEnvironmentOrNull("ProgramW6432"),
+                DirPath.GetFromEnvironmentOrNull("LocalAppData", "Programs")
+            };
 
-            return result;
+            return result.Where(r => r != null).ToArray();
         }
 
         public IReadOnlyList<string> SearchPaths { get; }

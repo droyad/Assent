@@ -12,9 +12,10 @@ public class RiderDiffProgram : DiffProgramBase
 
     static RiderDiffProgram()
     {
-        if (!DirPath.TryGetFromEnvironment("LocalAppData", new[] { "JetBrains", "Toolbox", "apps", "Rider" }, out var riderChannelsDirectory))
+        var riderChannelsDirectory = DirPath.GetFromEnvironmentOrNull("LocalAppData", "JetBrains", "Toolbox", "apps", "Rider");
+        if (riderChannelsDirectory == null)
         {
-            DefaultSearchPaths = Array.Empty<string>();
+            DefaultSearchPaths = [];
             return;
         }
 
