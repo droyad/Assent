@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
-    public class WinMergeDiffProgram : DiffProgramBase
+    public class WinMergeDiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
     {
         static WinMergeDiffProgram()
         {
@@ -14,14 +14,9 @@ namespace Assent.Reporters.DiffPrograms
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
-        public WinMergeDiffProgram() : base(DefaultSearchPaths)
+        public WinMergeDiffProgram() : this(DefaultSearchPaths)
         {
 
-        }
-
-        public WinMergeDiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
-        {
         }
     }
 }

@@ -2,19 +2,11 @@
 
 namespace Assent
 {
-    public class DefaultStringComparer : IComparer<string>
+    public class DefaultStringComparer(bool normaliseLineEndings, int numberOfCharactersEitherSideToReport)
+        : IComparer<string>
     {
-        private readonly bool _normaliseLineEndings;
-        private readonly int _numberOfCharactersEitherSideToReport;
-
         public DefaultStringComparer(bool normaliseLineEndings) : this(normaliseLineEndings, 200)
         {
-        }
-        
-        public DefaultStringComparer(bool normaliseLineEndings, int numberOfCharactersEitherSideToReport)
-        {
-            _normaliseLineEndings = normaliseLineEndings;
-            _numberOfCharactersEitherSideToReport = numberOfCharactersEitherSideToReport;
         }
 
         public CompareResult Compare(string received, string approved)
@@ -22,7 +14,7 @@ namespace Assent
             received = received ?? "";
             approved = approved ?? "";
 
-            if (_normaliseLineEndings)
+            if (normaliseLineEndings)
             {
                 received = received.Replace("\r\n", "\n").TrimEnd('\n');
                 approved = approved.Replace("\r\n", "\n").TrimEnd('\n');
@@ -31,7 +23,7 @@ namespace Assent
             if (received == approved)
                 return CompareResult.Pass();
 
-            if (!_normaliseLineEndings)
+            if (!normaliseLineEndings)
             {
                 var normalisedReceived = received.Replace("\r\n", "\n").TrimEnd('\n');
                 var normalisedApproved = approved.Replace("\r\n", "\n").TrimEnd('\n');
@@ -42,7 +34,7 @@ namespace Assent
             var length = Math.Min(approved.Length, received.Length);
             for (var x = 0; x < length; x++)
                 if (approved[x] != received[x])
-                    return CompareResult.Fail($"Strings differ at {x}.{Environment.NewLine}Received:{received.SafeSubstring(x - _numberOfCharactersEitherSideToReport, x + _numberOfCharactersEitherSideToReport)}{Environment.NewLine}Approved:{approved.SafeSubstring(x - _numberOfCharactersEitherSideToReport, x + _numberOfCharactersEitherSideToReport)}");
+                    return CompareResult.Fail($"Strings differ at {x}.{Environment.NewLine}Received:{received.SafeSubstring(x - numberOfCharactersEitherSideToReport, x + numberOfCharactersEitherSideToReport)}{Environment.NewLine}Approved:{approved.SafeSubstring(x - numberOfCharactersEitherSideToReport, x + numberOfCharactersEitherSideToReport)}");
 
             if (received.Length != approved.Length)
                 CompareResult.Fail(

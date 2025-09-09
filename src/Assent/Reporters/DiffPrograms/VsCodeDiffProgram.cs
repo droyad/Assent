@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
-    public class VsCodeDiffProgram : DiffProgramBase
+    public class VsCodeDiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
     {
         static VsCodeDiffProgram()
         {
@@ -28,12 +28,7 @@ namespace Assent.Reporters.DiffPrograms
         public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
 
-        public VsCodeDiffProgram() : base(DefaultSearchPaths)
-        {
-        }
-
-        public VsCodeDiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
+        public VsCodeDiffProgram() : this(DefaultSearchPaths)
         {
         }
 

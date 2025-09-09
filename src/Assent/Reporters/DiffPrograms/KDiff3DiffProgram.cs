@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
-    public class KDiff3DiffProgram : DiffProgramBase
+    public class KDiff3DiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
     {
         static KDiff3DiffProgram()
         {
@@ -15,14 +15,8 @@ namespace Assent.Reporters.DiffPrograms
 
         public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
-        public KDiff3DiffProgram() : base(DefaultSearchPaths)
+        public KDiff3DiffProgram() : this(DefaultSearchPaths)
         {
         }
-
-        public KDiff3DiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
-        {
-        }
-
     }
 }

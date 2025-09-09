@@ -4,7 +4,7 @@ using Assent.Reporters.DiffPrograms;
 
 namespace Assent.Reporters
 {
-    public class DiffReporter : IReporter
+    public class DiffReporter(IReadOnlyList<IDiffProgram> diffPrograms) : IReporter
     {
 #if NET45
         internal static readonly bool IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
@@ -40,21 +40,14 @@ namespace Assent.Reporters
 
         public static readonly IReadOnlyList<IDiffProgram> DefaultDiffPrograms;
 
-        private readonly IReadOnlyList<IDiffProgram> _diffPrograms;
-
 
         public DiffReporter() : this(DefaultDiffPrograms)
         {
         }
 
-        public DiffReporter(IReadOnlyList<IDiffProgram> diffPrograms)
-        {
-            _diffPrograms = diffPrograms;
-        }
-
         public void Report(string receivedFile, string approvedFile)
         {
-            foreach (var program in _diffPrograms)
+            foreach (var program in diffPrograms)
                 if (program.Launch(receivedFile, approvedFile))
                     return;
 

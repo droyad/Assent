@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms
 {
-    public class BeyondCompareDiffProgram : DiffProgramBase
+    public class BeyondCompareDiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
     {
         static BeyondCompareDiffProgram()
         {
@@ -33,12 +33,7 @@ namespace Assent.Reporters.DiffPrograms
         public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
 
-        public BeyondCompareDiffProgram() : base(DefaultSearchPaths)
-        {
-        }
-
-        public BeyondCompareDiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
+        public BeyondCompareDiffProgram() : this(DefaultSearchPaths)
         {
         }
 
