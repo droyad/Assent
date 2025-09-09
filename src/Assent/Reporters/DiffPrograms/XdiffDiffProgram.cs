@@ -9,7 +9,8 @@ namespace Assent.Reporters.DiffPrograms
     {
         static XdiffDiffProgram()
         {
-            if (DirPath.TryGetFromEnvironment("LocalAppData", new[] { "semanticmerge " }, out var semanticMergeDir))
+            var semanticMergeDir = DirPath.GetFromEnvironmentOrNull("LocalAppData", "semanticmerge");
+            if (semanticMergeDir != null)
             {
                 InstallPath = Path.Combine(semanticMergeDir, "mergetool.exe");
             }

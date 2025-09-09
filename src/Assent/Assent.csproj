@@ -11,5 +11,6 @@
     <PackageProjectUrl>https://github.com/droyad/Assent</PackageProjectUrl>
     <RepositoryUrl>https://github.com/droyad/Assent</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/droyad/Assent/blob/master/LICENCE.md</PackageLicenseUrl>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 </Project>
