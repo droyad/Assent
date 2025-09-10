@@ -1,38 +1,35 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Assent.Tests.Stubs;
 using NSubstitute;
 using NUnit.Framework;
 using TestStack.BDDfy;
 
-namespace Assent.Tests.EndToEnd
+namespace Assent.Tests.EndToEnd;
+
+public abstract class BaseScenario
 {
-    public abstract class BaseScenario
+    protected Configuration Configuration { get; set; } = new();
+
+    public void GivenTestStubs()
     {
-        protected Configuration Configuration { get; set; } = new Configuration();
+        Configuration = Configuration
+            .UsingReaderWriter(ReaderWriter)
+            .UsingReporter(Reporter);
+    }
 
-        public void GivenTestStubs()
-        {
-            ReaderWriter = new StubReaderWriter<string>();
-            Reporter = Substitute.For<IReporter>();
+    protected IReporter Reporter { get; set; } = Substitute.For<IReporter>();
 
-            Configuration = Configuration
-                .UsingReaderWriter(ReaderWriter)
-                .UsingReporter(Reporter);
-        }
+    protected StubReaderWriter<string> ReaderWriter { get; } = new();
 
-        protected IReporter Reporter { get; set; }
+    [Test]
+    public void Execute()
+    {
+        this.BDDfy();
+    }
 
-        protected StubReaderWriter<string> ReaderWriter { get; set; }
-
-        [Test]
-        public void Execute()
-        {
-            this.BDDfy();
-        }
-
-        protected static string GetTestDirectory([CallerFilePath] string callerFilePath = null)
-        {
-            return callerFilePath.Substring(0, callerFilePath.IndexOf("Assent.Tests")) + "Assent.Tests";
-        }
+    protected static string GetTestDirectory([CallerFilePath] string callerFilePath = "unknown")
+    {
+        return callerFilePath.Substring(0, callerFilePath.IndexOf("Assent.Tests")) + "Assent.Tests";
     }
 }

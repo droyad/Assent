@@ -1,19 +1,11 @@
 ﻿using System;
 
-namespace Assent.Reporters
+namespace Assent.Reporters;
+
+public class DelegateReporter(Action<string, string> reporter) : IReporter
 {
-    public class DelegateReporter : IReporter
+    public void Report(string receivedFile, string approvedFile)
     {
-        private readonly Action<string, string> _action;
-
-        public DelegateReporter(Action<string, string> reporter)
-        {
-            _action = reporter;
-        }
-
-        public void Report(string receivedFile, string approvedFile)
-        {
-            _action(receivedFile, approvedFile);
-        }
+        reporter(receivedFile, approvedFile);
     }
 }

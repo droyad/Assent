@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace Assent.Sanitisers
+namespace Assent.Sanitisers;
+
+public class DelegateSanitiser<T> : ISanitiser<T>
 {
-    public class DelegateSanitiser<T> : ISanitiser<T>
+    private readonly Func<T, T> func;
+
+    public DelegateSanitiser(Func<T,T> func)
     {
-        private readonly Func<T, T> _func;
+        this.func = func;
+    }
 
-        public DelegateSanitiser(Func<T,T> func)
-        {
-            _func = func;
-        }
-
-        public T Sanatise(T recieved)
-        {
-            return _func(recieved);
-        }
+    public T Sanatise(T recieved)
+    {
+        return func(recieved);
     }
 }

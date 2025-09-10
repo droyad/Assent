@@ -1,7 +1,6 @@
-﻿namespace Assent
+﻿namespace Assent;
+
+public interface IReporter
 {
-    public interface IReporter
-    {
-        void Report(string receivedFile, string approvedFile);
-    }
+    void Report(string receivedFile, string approvedFile);
 }

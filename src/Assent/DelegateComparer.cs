@@ -1,16 +1,8 @@
 ﻿using System;
 
-namespace Assent
+namespace Assent;
+
+public class DelegateComparer<T>(Func<T?, T?, CompareResult> comparer) : IComparer<T>
 {
-    public class DelegateComparer<T> : IComparer<T>
-    {
-        readonly Func<T, T, CompareResult> _comparer;
-
-        public DelegateComparer(Func<T, T, CompareResult> comparer)
-        {
-            _comparer = comparer;
-        }
-
-        public CompareResult Compare(T recieved, T approved) => _comparer(recieved, approved);
-    }
+    public CompareResult Compare(T? recieved, T? approved) => comparer(recieved, approved);
 }

@@ -1,17 +1,8 @@
-namespace Assent
+namespace Assent;
+
+public class TestMetadata(object testFixture, string testName, string filePath)
 {
-    public class TestMetadata
-    {
-        public TestMetadata(object testFixture, string testName, string filePath)
-        {
-            TestFixture = testFixture;
-            TestName = testName;
-            FilePath = filePath;
-        }
-
-        public object TestFixture { get; }
-        public string TestName { get; }
-        public string FilePath { get; }
-
-    }
+    public object TestFixture { get; } = testFixture;
+    public string TestName { get; } = testName;
+    public string FilePath { get; } = filePath;
 }

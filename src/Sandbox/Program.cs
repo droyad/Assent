@@ -2,39 +2,38 @@
 using System.Threading;
 using Assent;
 
-namespace Sandbox
+namespace Sandbox;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var prog = new Program();
+        var prog = new Program();
             
-            var t1 = new Thread(() => prog.Run(1));
-            var t2 = new Thread(() => prog.Run(2));
+        var t1 = new Thread(() => prog.Run(1));
+        var t2 = new Thread(() => prog.Run(2));
             
-            t1.Start();
-            Thread.Sleep(2000);
-            t2.Start();
+        t1.Start();
+        Thread.Sleep(2000);
+        t2.Start();
 
-            t1.Join();
-            t2.Join();
+        t1.Join();
+        t2.Join();
             
-            Console.WriteLine("All Done");
-        }
+        Console.WriteLine("All Done");
+    }
 
-        private void Run(int n)
+    private void Run(int n)
+    {
+        try
         {
-            try
-            {
-                this.Assent($"Thread {n}", testName: n.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Thread {n} Exception: {ex.Message}");
-            }
-            
-            Console.WriteLine($"Thread {n} done");
+            this.Assent($"Thread {n}", testName: n.ToString());
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Thread {n} Exception: {ex.Message}");
+        }
+            
+        Console.WriteLine($"Thread {n} done");
     }
 }

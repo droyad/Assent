@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Assent.Reporters.DiffPrograms;
 
-public class MeldDiffProgram : DiffProgramBase
+public class MeldDiffProgram() : DiffProgramBase(DefaultSearchPaths)
 {
     static readonly IReadOnlyList<string> DefaultSearchPaths;
 
@@ -25,9 +25,6 @@ public class MeldDiffProgram : DiffProgramBase
         }
         DefaultSearchPaths = paths;
     }
-
-    public MeldDiffProgram()
-        : base(DefaultSearchPaths) { }
 
     protected override string CreateProcessStartArgs(string receivedFile, string approvedFile) => "\"" + receivedFile + "\" \"" + approvedFile + "\"";
 }

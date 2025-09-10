@@ -1,7 +1,6 @@
-﻿namespace Assent
+﻿namespace Assent;
+
+public interface INamer
 {
-    public interface INamer
-    {
-        string GetName(TestMetadata metadata);
-    }
+    string GetName(TestMetadata metadata);
 }

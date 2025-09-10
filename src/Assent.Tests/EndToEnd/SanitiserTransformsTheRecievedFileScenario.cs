@@ -1,30 +1,29 @@
-﻿namespace Assent.Tests.EndToEnd
+﻿namespace Assent.Tests.EndToEnd;
+
+public class SanitiserTransformsTheRecievedFileScenario : BaseScenario
 {
-    public class SanitiserTransformsTheRecievedFileScenario : BaseScenario
+    private readonly string approvedPath =
+        $@"{GetTestDirectory()}\EndToEnd\{nameof(SanitiserTransformsTheRecievedFileScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
+
+        
+    public void AndGivenADelegateSanitiser()
     {
-       private readonly string _approvedPath =
-            $@"{GetTestDirectory()}\EndToEnd\{nameof(SanitiserTransformsTheRecievedFileScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
+        Configuration = Configuration.UsingSanitiser(s => s.Replace(" ", "_"));
+    }
 
-        
-        public void AndGivenADelegateSanitiser()
-        {
-            Configuration = Configuration.UsingSanitiser(s => s.Replace(" ", "_"));
-        }
-
-        public void AndGivenTheApprovedFileHasTheSanitisedVersion()
-        {
-            ReaderWriter.Files[_approvedPath] = "Foo_Bar";
-        }
+    public void AndGivenTheApprovedFileHasTheSanitisedVersion()
+    {
+        ReaderWriter.Files[approvedPath] = "Foo_Bar";
+    }
         
 
-        public void WhenTheTestIsRun()
-        {
-            this.Assent("Foo Bar", Configuration);
-        }
+    public void WhenTheTestIsRun()
+    {
+        this.Assent("Foo Bar", Configuration);
+    }
 
-        public void ThenNoExceptionIsThrown()
-        {
+    public void ThenNoExceptionIsThrown()
+    {
 
-        }
     }
 }

@@ -2,51 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assent.Reporters.DiffPrograms
+namespace Assent.Reporters.DiffPrograms;
+
+public class BeyondCompareDiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
 {
-    public class BeyondCompareDiffProgram : DiffProgramBase
+    static BeyondCompareDiffProgram()
     {
-        static BeyondCompareDiffProgram()
+        var paths = new List<string>();
+        if (DiffReporter.IsWindows)
         {
-            var paths = new List<string>();
-            if (DiffReporter.IsWindows)
-            {
-                paths.AddRange(WindowsProgramFilePaths()
-                    .SelectMany(p =>
-                        new[]
-                        {
-                            $@"{p}\Beyond Compare 5\BComp.exe",
-                            $@"{p}\Beyond Compare 4\BComp.com",
-                            $@"{p}\Beyond Compare 3\BComp.com"
-                        })
-                    .ToArray());
-            }
-            else
-            {
-                paths.Add("/usr/bin/bcomp");
-                paths.Add("/usr/local/bin/bcomp");
-                paths.Add("/opt/homebrew/bin/bcomp");
-            }
-            DefaultSearchPaths = paths;
+            paths.AddRange(WindowsProgramFilePaths()
+                .SelectMany(p =>
+                    new[]
+                    {
+                        $@"{p}\Beyond Compare 5\BComp.exe",
+                        $@"{p}\Beyond Compare 4\BComp.com",
+                        $@"{p}\Beyond Compare 3\BComp.com"
+                    })
+                .ToArray());
         }
-
-        public static readonly IReadOnlyList<string> DefaultSearchPaths;
-
-
-        public BeyondCompareDiffProgram() : base(DefaultSearchPaths)
+        else
         {
+            paths.Add("/usr/bin/bcomp");
+            paths.Add("/usr/local/bin/bcomp");
+            paths.Add("/opt/homebrew/bin/bcomp");
         }
+        DefaultSearchPaths = paths;
+    }
 
-        public BeyondCompareDiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
-        {
-        }
+    public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
-        protected override string CreateProcessStartArgs(string receivedFile, string approvedFile)
-        {
-            var defaultArgs = base.CreateProcessStartArgs(receivedFile, approvedFile);
-            var argChar = DiffReporter.IsWindows ? "/" : "-";
-            return $"{defaultArgs} {argChar}solo";
-        }
+
+    public BeyondCompareDiffProgram() : this(DefaultSearchPaths)
+    {
+    }
+
+    protected override string CreateProcessStartArgs(string receivedFile, string approvedFile)
+    {
+        var defaultArgs = base.CreateProcessStartArgs(receivedFile, approvedFile);
+        var argChar = DiffReporter.IsWindows ? "/" : "-";
+        return $"{defaultArgs} {argChar}solo";
     }
 }

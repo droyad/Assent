@@ -1,27 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assent.Reporters.DiffPrograms
+namespace Assent.Reporters.DiffPrograms;
+
+public class WinMergeDiffProgram(IReadOnlyList<string> searchPaths) : DiffProgramBase(searchPaths)
 {
-    public class WinMergeDiffProgram : DiffProgramBase
+    static WinMergeDiffProgram()
     {
-        static WinMergeDiffProgram()
-        {
-            DefaultSearchPaths = WindowsProgramFilePaths()
-                .Select(p => $@"{p}\WinMerge\WinMergeU.exe")
-                .ToArray();
-        }
+        DefaultSearchPaths = WindowsProgramFilePaths()
+            .Select(p => $@"{p}\WinMerge\WinMergeU.exe")
+            .ToArray();
+    }
 
-        public static readonly IReadOnlyList<string> DefaultSearchPaths;
+    public static readonly IReadOnlyList<string> DefaultSearchPaths;
 
-        public WinMergeDiffProgram() : base(DefaultSearchPaths)
-        {
+    public WinMergeDiffProgram() : this(DefaultSearchPaths)
+    {
 
-        }
-
-        public WinMergeDiffProgram(IReadOnlyList<string> searchPaths)
-            : base(searchPaths)
-        {
-        }
     }
 }

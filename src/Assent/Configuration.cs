@@ -3,189 +3,188 @@ using Assent.Namers;
 using Assent.Reporters;
 using Assent.Sanitisers;
 
-namespace Assent
-{
-    public interface IConfiguration<T>
-    {
-        INamer Namer { get; }
-        IReporter Reporter { get; }
-        T ApprovalFileNameSuffix { get; }
-        T ReceivedFileNameSuffix { get; }
-        T Extension { get; }
-        IReaderWriter<T> ReaderWriter { get; }
-        IComparer<T> Comparer { get; }
-        bool IsInteractive { get; }
+namespace Assent;
 
-        ISanitiser<T> Sanitiser { get; }
+public interface IConfiguration<T>
+{
+    INamer Namer { get; }
+    IReporter Reporter { get; }
+    T ApprovalFileNameSuffix { get; }
+    T ReceivedFileNameSuffix { get; }
+    T Extension { get; }
+    IReaderWriter<T> ReaderWriter { get; }
+    IComparer<T> Comparer { get; }
+    bool IsInteractive { get; }
+
+    ISanitiser<T> Sanitiser { get; }
+}
+
+public class Configuration : IConfiguration<string>
+{
+    public Configuration()
+    {
+        Reporter = new DiffReporter();
+        Comparer = new DefaultStringComparer(true);
+        Extension = "txt";
+        ApprovalFileNameSuffix = ".approved";
+        ReceivedFileNameSuffix = ".received";
+        ReaderWriter = new StringReaderWriter();
+        Namer = new DefaultNamer();
+        Sanitiser = new NullSanitiser<string>();
+        IsInteractive = !"true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
     }
 
-    public class Configuration : IConfiguration<string>
+    private Configuration(Configuration basedOn)
     {
-        public Configuration()
+        Namer = basedOn.Namer;
+        Comparer = basedOn.Comparer;
+        Reporter = basedOn.Reporter;
+        Extension = basedOn.Extension;
+        ApprovalFileNameSuffix = basedOn.ApprovalFileNameSuffix;
+        ReceivedFileNameSuffix = basedOn.ReceivedFileNameSuffix;
+        ReaderWriter = basedOn.ReaderWriter;
+        Sanitiser = basedOn.Sanitiser;
+        IsInteractive = basedOn.IsInteractive;
+    }
+
+    public INamer Namer { get; private set; }
+    public IReporter Reporter { get; private set; }
+    public string Extension { get; private set; }
+    public string ApprovalFileNameSuffix { get; private set; }
+    public string ReceivedFileNameSuffix { get; private set; }
+    public IReaderWriter<string> ReaderWriter { get; private set; }
+    public IComparer<string> Comparer { get; private set; }
+    public ISanitiser<string> Sanitiser { get; private set; }
+
+    public bool IsInteractive { get; private set; }
+
+    public Configuration UsingNamer(INamer namer)
+    {
+        return new Configuration(this)
         {
-            Reporter = new DiffReporter();
-            Comparer = new DefaultStringComparer(true);
-            Extension = "txt";
-            ApprovalFileNameSuffix = ".approved";
-            ReceivedFileNameSuffix = ".received";
-            ReaderWriter = new StringReaderWriter();
-            Namer = new DefaultNamer();
-            Sanitiser = new NullSanitiser<string>();
-            IsInteractive = !"true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
-        }
+            Namer = namer
+        };
+    }
 
-        private Configuration(Configuration basedOn)
+    public Configuration UsingNamer(Func<TestMetadata, string> namer)
+    {
+        return new Configuration(this)
         {
-            Namer = basedOn.Namer;
-            Comparer = basedOn.Comparer;
-            Reporter = basedOn.Reporter;
-            Extension = basedOn.Extension;
-            ApprovalFileNameSuffix = basedOn.ApprovalFileNameSuffix;
-            ReceivedFileNameSuffix = basedOn.ReceivedFileNameSuffix;
-            ReaderWriter = basedOn.ReaderWriter;
-            Sanitiser = basedOn.Sanitiser;
-            IsInteractive = basedOn.IsInteractive;
-        }
-
-        public INamer Namer { get; private set; }
-        public IReporter Reporter { get; private set; }
-        public string Extension { get; private set; }
-        public string ApprovalFileNameSuffix { get; private set; }
-        public string ReceivedFileNameSuffix { get; private set; }
-        public IReaderWriter<string> ReaderWriter { get; private set; }
-        public IComparer<string> Comparer { get; private set; }
-        public ISanitiser<string> Sanitiser { get; private set; }
-
-        public bool IsInteractive { get; private set; }
-
-        public Configuration UsingNamer(INamer namer)
-        {
-            return new Configuration(this)
-            {
-                Namer = namer
-            };
-        }
-
-        public Configuration UsingNamer(Func<TestMetadata, string> namer)
-        {
-            return new Configuration(this)
-            {
-                Namer = new DelegateNamer(namer)
-            };
-        }
+            Namer = new DelegateNamer(namer)
+        };
+    }
         
-        public Configuration UsingApprovalFileNameSuffix(string approvalFileNameSuffix)
+    public Configuration UsingApprovalFileNameSuffix(string approvalFileNameSuffix)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                ApprovalFileNameSuffix = approvalFileNameSuffix
-            };
-        }
+            ApprovalFileNameSuffix = approvalFileNameSuffix
+        };
+    }
         
-        public Configuration UsingReceivedFileNameSuffix(string receivedFileNameSuffix)
+    public Configuration UsingReceivedFileNameSuffix(string receivedFileNameSuffix)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                ReceivedFileNameSuffix = receivedFileNameSuffix
-            };
-        }
+            ReceivedFileNameSuffix = receivedFileNameSuffix
+        };
+    }
 
-        public Configuration UsingFixedName(string name)
+    public Configuration UsingFixedName(string name)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Namer = new FixedNamer(name)
-            };
-        }
+            Namer = new FixedNamer(name)
+        };
+    }
 
-        public Configuration UsingReporter(IReporter reporter)
+    public Configuration UsingReporter(IReporter reporter)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Reporter = reporter
-            };
-        }
+            Reporter = reporter
+        };
+    }
 
-        /// <summary>
-        /// Executes the supplied delegate as the reporter. The first parameter is the received name, and the second is the approved filename.
-        /// </summary>
-        /// <param name="action">(string receivedFile, string approvedFile) => void</param>
-        /// <returns>A new configuration instance</returns>
-        public Configuration UsingReporter(Action<string, string> action)
+    /// <summary>
+    /// Executes the supplied delegate as the reporter. The first parameter is the received name, and the second is the approved filename.
+    /// </summary>
+    /// <param name="action">(string receivedFile, string approvedFile) => void</param>
+    /// <returns>A new configuration instance</returns>
+    public Configuration UsingReporter(Action<string, string> action)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Reporter = new DelegateReporter(action)
-            };
-        }
+            Reporter = new DelegateReporter(action)
+        };
+    }
 
-        public Configuration UsingExtension(string ext)
+    public Configuration UsingExtension(string ext)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Extension = ext
-            };
-        }
+            Extension = ext
+        };
+    }
 
-        public Configuration UsingReaderWriter(IReaderWriter<string> readerWriter)
+    public Configuration UsingReaderWriter(IReaderWriter<string> readerWriter)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                ReaderWriter = readerWriter
-            };
-        }
+            ReaderWriter = readerWriter
+        };
+    }
 
-        public Configuration UsingComparer(IComparer<string> comparer)
+    public Configuration UsingComparer(IComparer<string> comparer)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Comparer = comparer
-            };
-        }
+            Comparer = comparer
+        };
+    }
 
-        public Configuration UsingComparer(Func<string, string, CompareResult> comparer)
+    public Configuration UsingComparer(Func<string?, string?, CompareResult> comparer)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Comparer = new DelegateComparer<string>(comparer)
-            };
-        }
+            Comparer = new DelegateComparer<string>(comparer)
+        };
+    }
 
-        public Configuration UsingComparer(Action<string, string> comparer)
+    public Configuration UsingComparer(Action<string?, string?> comparer)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
+            Comparer = new DelegateComparer<string>((r, a) =>
             {
-                Comparer = new DelegateComparer<string>((r, a) =>
-                {
-                    comparer(r, a);
-                    return CompareResult.Pass();
-                })
-            };
-        }
+                comparer(r, a);
+                return CompareResult.Pass();
+            })
+        };
+    }
 
-        public Configuration UsingSanitiser(ISanitiser<string> sanitiser)
+    public Configuration UsingSanitiser(ISanitiser<string> sanitiser)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Sanitiser = sanitiser
-            };
-        }
+            Sanitiser = sanitiser
+        };
+    }
 
-        public Configuration UsingSanitiser(Func<string, string> Sanitiser)
+    public Configuration UsingSanitiser(Func<string, string> Sanitiser)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                Sanitiser = new DelegateSanitiser<string>(Sanitiser)
-            };
-        }
+            Sanitiser = new DelegateSanitiser<string>(Sanitiser)
+        };
+    }
 
 
-        public Configuration SetInteractive(bool isInteractive)
+    public Configuration SetInteractive(bool isInteractive)
+    {
+        return new Configuration(this)
         {
-            return new Configuration(this)
-            {
-                IsInteractive = isInteractive
-            };
-        }
+            IsInteractive = isInteractive
+        };
     }
 }

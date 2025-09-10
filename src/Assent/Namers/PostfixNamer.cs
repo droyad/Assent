@@ -1,17 +1,9 @@
-﻿namespace Assent.Namers
+﻿namespace Assent.Namers;
+
+public class PostfixNamer(string postfix) : DefaultNamer
 {
-    public class PostfixNamer : DefaultNamer
+    public override string GetName(TestMetadata metadata)
     {
-        private readonly string _postfix;
-
-        public PostfixNamer(string postfix)
-        {
-            _postfix = postfix;
-        }
-
-        public override string GetName(TestMetadata metadata)
-        {
-            return base.GetName(metadata) + "." + _postfix;
-        }
+        return base.GetName(metadata) + "." + postfix;
     }
 }

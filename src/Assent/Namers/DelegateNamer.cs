@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assent.Namers
+namespace Assent.Namers;
+
+public class DelegateNamer : INamer
 {
-    public class DelegateNamer : INamer
+    readonly Func<TestMetadata, string> f;
+
+    public DelegateNamer(Func<TestMetadata, string> f)
     {
-        readonly Func<TestMetadata, string> _f;
+        this.f = f;
+    }
 
-        public DelegateNamer(Func<TestMetadata, string> f)
-        {
-            _f = f;
-        }
-
-        public string GetName(TestMetadata metadata)
-        {
-            return _f(metadata);
-        }
+    public string GetName(TestMetadata metadata)
+    {
+        return f(metadata);
     }
 }

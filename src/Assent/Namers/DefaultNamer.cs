@@ -1,13 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace Assent.Namers
+namespace Assent.Namers;
+
+public class DefaultNamer : INamer
 {
-    public class DefaultNamer : INamer
+    public virtual string GetName(TestMetadata metadata)
     {
-        public virtual string GetName(TestMetadata metadata)
-        {
-            var dir = Path.GetDirectoryName(metadata.FilePath);
-            return Path.Combine(dir, $"{metadata.TestFixture.GetType().Name}.{metadata.TestName}");
-        }
+        var dir = Path.GetDirectoryName(metadata.FilePath) ?? throw new Exception("Could not get directory name");
+        return Path.Combine(dir, $"{metadata.TestFixture.GetType().Name}.{metadata.TestName}");
     }
 }
