@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Assent.Namers;
@@ -10,7 +11,7 @@ namespace Assent.Namers;
 public class SubdirectoryNamer : INamer
 {
     private readonly string _subdirectory;
-    private readonly string _postfix;
+    private readonly string? _postfix;
 
     /// <summary>
     /// Creates a new SubdirectoryNamer
@@ -34,7 +35,7 @@ public class SubdirectoryNamer : INamer
 
     public virtual string GetName(TestMetadata metadata)
     {
-        var dir = Path.GetDirectoryName(metadata.FilePath);
+        var dir = Path.GetDirectoryName(metadata.FilePath) ?? throw new Exception("Could not get directory name");
         var filename = $"{metadata.TestFixture.GetType().Name}.{metadata.TestName}";
         if (_postfix != null)
             filename += "." + _postfix;

@@ -6,7 +6,7 @@ namespace Assent.Tests.EndToEnd;
 
 public class ApprovedFileMatchesScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
     private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(ApprovedFileMatchesScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
     private readonly string _approvedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(ApprovedFileMatchesScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 

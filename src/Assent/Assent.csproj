@@ -3,6 +3,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>Assent</AssemblyName>
     <PackageId>Assent</PackageId>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -11,6 +14,5 @@
     <PackageProjectUrl>https://github.com/droyad/Assent</PackageProjectUrl>
     <RepositoryUrl>https://github.com/droyad/Assent</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/droyad/Assent/blob/master/LICENCE.md</PackageLicenseUrl>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 </Project>

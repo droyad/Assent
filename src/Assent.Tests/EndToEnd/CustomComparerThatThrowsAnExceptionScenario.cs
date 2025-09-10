@@ -6,7 +6,7 @@ namespace Assent.Tests.EndToEnd;
 
 public class CustomComparerThatThrowsAnExceptionScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {
@@ -27,7 +27,7 @@ public class CustomComparerThatThrowsAnExceptionScenario : BaseScenario
 
 public class CustomComparerThatReturnsAResultScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {
@@ -48,7 +48,7 @@ public class CustomComparerThatReturnsAResultScenario : BaseScenario
 
 public class CustomComparerWithFluentAssertionsScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {

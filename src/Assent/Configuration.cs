@@ -143,7 +143,7 @@ public class Configuration : IConfiguration<string>
         };
     }
 
-    public Configuration UsingComparer(Func<string, string, CompareResult> comparer)
+    public Configuration UsingComparer(Func<string?, string?, CompareResult> comparer)
     {
         return new Configuration(this)
         {
@@ -151,7 +151,7 @@ public class Configuration : IConfiguration<string>
         };
     }
 
-    public Configuration UsingComparer(Action<string, string> comparer)
+    public Configuration UsingComparer(Action<string?, string?> comparer)
     {
         return new Configuration(this)
         {

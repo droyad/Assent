@@ -4,6 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <AssemblyName>Assent.Tests</AssemblyName>
     <PackageId>Assent.Tests</PackageId>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -11,17 +14,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Assent\Assent.csproj" />
+    <ProjectReference Include="..\Assent\Assent.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="NUnit" Version="4.4.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="5.1.0" />
-    <PackageReference Include="FluentAssertions" Version="8.6.0" />
-    <PackageReference Include="NSubstitute" Version="5.3.0" />
-    <PackageReference Include="TestStack.BDDfy" Version="4.3.2" />
-    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
+    <PackageReference Include="NUnit" Version="4.4.0"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="5.1.0"/>
+    <PackageReference Include="FluentAssertions" Version="8.6.0"/>
+    <PackageReference Include="NSubstitute" Version="5.3.0"/>
+    <PackageReference Include="TestStack.BDDfy" Version="4.3.2"/>
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0"/>
   </ItemGroup>
 
 </Project>

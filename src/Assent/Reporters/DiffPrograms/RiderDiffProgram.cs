@@ -33,11 +33,15 @@ public class RiderDiffProgram : DiffProgramBase
     {
         var versions = Directory.GetDirectories(channelDirectory)
             .Where(directory => Regex.IsMatch(directory, @".*[0-9]+\.[0-9]+\.[0-9]+$"))
-            .Select(path => GetRiderVersion(path.Replace(channelDirectory + "\\", "")));
+            .Select(path => GetRiderVersion(path.Replace(channelDirectory + "\\", "")))
+            .ToArray();
 
+        if (!versions.Any())
+            throw new Exception($"No rider versions found in {channelDirectory}");
+        
         var newestVersion = versions.MaxBy(x => x, new RiderVersionComparer());
 
-        return $"{channelDirectory}\\{newestVersion.Major}.{newestVersion.Minor}.{newestVersion.Patch}\\bin\\rider64.exe";
+        return $"{channelDirectory}\\{newestVersion!.Major}.{newestVersion.Minor}.{newestVersion.Patch}\\bin\\rider64.exe";
     }
 
     protected static RiderVersion GetRiderVersion(string version)
@@ -57,7 +61,7 @@ public record RiderVersion(int Major, int Minor, int Patch);
 
 public class RiderVersionComparer : System.Collections.Generic.IComparer<RiderVersion>
 {
-    public int Compare(RiderVersion x, RiderVersion y)
+    public int Compare(RiderVersion? x, RiderVersion? y)
     {
         if (x == null)
         {

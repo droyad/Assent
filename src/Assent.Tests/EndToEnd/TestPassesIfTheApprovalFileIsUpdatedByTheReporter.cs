@@ -13,8 +13,8 @@ public class DelegateReporterScenario : BaseScenario
     private readonly string _approvedPath =
         $@"{GetTestDirectory()}\EndToEnd\{nameof(DelegateReporterScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 
-    private string _recieved;
-    private string _approved;
+    private string? _recieved;
+    private string? _approved;
 
 
     public void AndGivenADelegateReporter()

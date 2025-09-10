@@ -6,15 +6,15 @@ namespace Assent.Tests.Stubs;
 
 public class StubReaderWriter<T> : IReaderWriter<T>
 {
-    public Dictionary<string, T> Files { get; } = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
-    public HashSet<string> Deleted { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, T?> Files { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public HashSet<string> Deleted { get; } = new(StringComparer.OrdinalIgnoreCase);
 
     public bool Exists(string filename)
     {
         return Files.ContainsKey(filename);
     }
 
-    public T Read(string filename)
+    public T? Read(string filename)
     {
         if (Deleted.Contains(filename))
             throw new FileNotFoundException();
@@ -22,7 +22,7 @@ public class StubReaderWriter<T> : IReaderWriter<T>
         return Files[filename];
     }
 
-    public void Write(string filename, T data)
+    public void Write(string filename, T? data)
     {
         Deleted.Remove(filename);
         Files[filename] = data;

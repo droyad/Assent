@@ -9,7 +9,7 @@ public class DefaultStringComparer(bool normaliseLineEndings, int numberOfCharac
     {
     }
 
-    public CompareResult Compare(string received, string approved)
+    public CompareResult Compare(string? received, string? approved)
     {
         received = received ?? "";
         approved = approved ?? "";

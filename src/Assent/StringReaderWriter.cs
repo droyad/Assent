@@ -9,7 +9,7 @@ public class StringReaderWriter : IReaderWriter<string>
 
     public string Read(string filename) => File.ReadAllText(filename);
 
-    public void Write(string filename, string data)
+    public void Write(string filename, string? data)
     {
         var dir = Path.GetDirectoryName(filename);
         if (dir is not null && !Directory.Exists(dir))

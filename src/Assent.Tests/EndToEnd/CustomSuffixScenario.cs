@@ -7,7 +7,7 @@ namespace Assent.Tests.EndToEnd;
 
 public class CustomSuffixScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
     private readonly string _receivedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.reçu.txt");
     private readonly string _approvedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.approuvé.txt");
 

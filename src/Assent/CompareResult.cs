@@ -22,7 +22,7 @@ public class CompareResult
         };
     }
 
-    public string Error { get; private set; }
+    public string Error { get; private set; } = "";
 
     public bool Passed { get; private set; }
 }

@@ -7,7 +7,7 @@ namespace Assent.Tests.EndToEnd;
 
 public class AssentNonInterativeVariablePreventsReporterFromRunningScenario : BaseScenario
 {
-    private Action _action;
+    private Action? _action;
     private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(AssentNonInterativeVariablePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
 
     public void AndGivenTheAssentNonInteractiveEnvironmentVariableIsSetToTrue()

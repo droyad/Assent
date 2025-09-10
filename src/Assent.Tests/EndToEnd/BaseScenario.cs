@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Assent.Tests.Stubs;
 using NSubstitute;
@@ -8,21 +9,18 @@ namespace Assent.Tests.EndToEnd;
 
 public abstract class BaseScenario
 {
-    protected Configuration Configuration { get; set; } = new Configuration();
+    protected Configuration Configuration { get; set; } = new();
 
     public void GivenTestStubs()
     {
-        ReaderWriter = new StubReaderWriter<string>();
-        Reporter = Substitute.For<IReporter>();
-
         Configuration = Configuration
             .UsingReaderWriter(ReaderWriter)
             .UsingReporter(Reporter);
     }
 
-    protected IReporter Reporter { get; set; }
+    protected IReporter Reporter { get; set; } = Substitute.For<IReporter>();
 
-    protected StubReaderWriter<string> ReaderWriter { get; set; }
+    protected StubReaderWriter<string> ReaderWriter { get; } = new();
 
     [Test]
     public void Execute()
@@ -30,7 +28,7 @@ public abstract class BaseScenario
         this.BDDfy();
     }
 
-    protected static string GetTestDirectory([CallerFilePath] string callerFilePath = null)
+    protected static string GetTestDirectory([CallerFilePath] string callerFilePath = "unknown")
     {
         return callerFilePath.Substring(0, callerFilePath.IndexOf("Assent.Tests")) + "Assent.Tests";
     }

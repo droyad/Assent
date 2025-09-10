@@ -60,7 +60,7 @@ public static class Engine<T>
         }
     }
 
-    private static CompareResult Compare(IComparer<T> comparer, T recieved, T approved)
+    private static CompareResult Compare(IComparer<T> comparer, T? recieved, T? approved)
     {
         try
         {

@@ -7,13 +7,12 @@ public static class Extensions
     public static void Assent(
         this object testFixture, 
         string recieved, 
-        Configuration configuration = null, 
-        [CallerMemberName] string testName = null, 
-        [CallerFilePath] string filePath = null
+        Configuration? configuration = null, 
+        [CallerMemberName] string testName = "unknown", 
+        [CallerFilePath] string filePath = "unknown"
     )
     {
         var metadata = new TestMetadata(testFixture, testName, filePath);
-        configuration = configuration ?? new Configuration();
-        Engine<string>.Execute(configuration, metadata, recieved);
+        Engine<string>.Execute(configuration ?? new Configuration(), metadata, recieved);
     }
 }
