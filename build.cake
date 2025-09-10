@@ -99,14 +99,26 @@ Task("PushPackages")
     .Does(() =>
 {
     var package = $"{artifactsDir}/Assent.{nugetVersion}.nupkg";
+    var symbols = $"{artifactsDir}/Assent.{nugetVersion}.snupkg";
     var localPackagesDir = "../LocalPackages";
 
-    if(DirectoryExists(localPackagesDir))
-        CopyFileToDirectory(package, localPackagesDir);
-
-    if(isContinuousIntegrationBuild && gitVersionInfo.PreReleaseTag == "")
+    if (DirectoryExists(localPackagesDir))
     {
-        NuGetPush(package, new NuGetPushSettings {
+        CopyFileToDirectory(package, localPackagesDir);
+        CopyFileToDirectory(symbols, localPackagesDir);
+    }
+
+    if (isContinuousIntegrationBuild && gitVersionInfo.PreReleaseTag == "")
+    {
+        NuGetPush(package, new NuGetPushSettings
+        {
+            Source = "https://www.nuget.org/api/v2/package",
+            ApiKey = EnvironmentVariable("NuGetApiKey"),
+            Timeout = TimeSpan.FromMinutes(20)
+        });
+
+        NuGetPush(symbols, new NuGetPushSettings
+        {
             Source = "https://www.nuget.org/api/v2/package",
             ApiKey = EnvironmentVariable("NuGetApiKey"),
             Timeout = TimeSpan.FromMinutes(20)
