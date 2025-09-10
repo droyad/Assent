@@ -18,7 +18,7 @@ public abstract class DiffProgramBase : IDiffProgram
             DirPath.GetFromEnvironmentOrNull("LocalAppData", "Programs")
         };
 
-        return result.Where(r => r != null).Select(r => r!).ToArray();
+        return result.Where(r => r != null).Select(r => r!).Distinct().ToArray();
     }
 
     public IReadOnlyList<string> SearchPaths { get; }
