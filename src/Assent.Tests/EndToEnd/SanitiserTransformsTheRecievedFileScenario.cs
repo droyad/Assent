@@ -2,7 +2,7 @@
 
 public class SanitiserTransformsTheRecievedFileScenario : BaseScenario
 {
-    private readonly string _approvedPath =
+    private readonly string approvedPath =
         $@"{GetTestDirectory()}\EndToEnd\{nameof(SanitiserTransformsTheRecievedFileScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 
         
@@ -13,7 +13,7 @@ public class SanitiserTransformsTheRecievedFileScenario : BaseScenario
 
     public void AndGivenTheApprovedFileHasTheSanitisedVersion()
     {
-        ReaderWriter.Files[_approvedPath] = "Foo_Bar";
+        ReaderWriter.Files[approvedPath] = "Foo_Bar";
     }
         
 

@@ -7,28 +7,28 @@ namespace Assent.Tests.EndToEnd;
 
 public class DelegateReporterScenario : BaseScenario
 {
-    private readonly string _recievedPath =
+    private readonly string recievedPath =
         $@"{GetTestDirectory()}\EndToEnd\{nameof(DelegateReporterScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
 
-    private readonly string _approvedPath =
+    private readonly string approvedPath =
         $@"{GetTestDirectory()}\EndToEnd\{nameof(DelegateReporterScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 
-    private string? _recieved;
-    private string? _approved;
+    private string? recieved;
+    private string? approved;
 
 
     public void AndGivenADelegateReporter()
     {
         Configuration = Configuration.UsingReporter((r, a) =>
         {
-            _recieved = r;
-            _approved = a;
+            recieved = r;
+            approved = a;
         });
     }
 
     public void AndGivenTheApprovedFileDoesNotMatch()
     {
-        ReaderWriter.Files[_approvedPath] = "Bar";
+        ReaderWriter.Files[approvedPath] = "Bar";
     }
 
     public void WhenTheTestIsRun()
@@ -45,11 +45,11 @@ public class DelegateReporterScenario : BaseScenario
 
     public void ThenTheDelegateRecievedParameterIsTheRecievedPath()
     {
-        _recieved.Should().Be(_recievedPath);
+        recieved.Should().Be(recievedPath);
     }
 
     public void ThenTheDelegateApprovedParameterIsTheApprovedPath()
     {
-        _approved.Should().Be(_approvedPath);
+        approved.Should().Be(approvedPath);
     }
 }

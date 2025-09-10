@@ -4,15 +4,15 @@ namespace Assent.Sanitisers;
 
 public class DelegateSanitiser<T> : ISanitiser<T>
 {
-    private readonly Func<T, T> _func;
+    private readonly Func<T, T> func;
 
     public DelegateSanitiser(Func<T,T> func)
     {
-        _func = func;
+        this.func = func;
     }
 
     public T Sanatise(T recieved)
     {
-        return _func(recieved);
+        return func(recieved);
     }
 }

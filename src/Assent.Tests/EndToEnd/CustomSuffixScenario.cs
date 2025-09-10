@@ -7,9 +7,9 @@ namespace Assent.Tests.EndToEnd;
 
 public class CustomSuffixScenario : BaseScenario
 {
-    private Action? _action;
-    private readonly string _receivedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.reçu.txt");
-    private readonly string _approvedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.approuvé.txt");
+    private Action? action;
+    private readonly string receivedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.reçu.txt");
+    private readonly string approvedPath = Path.Combine(GetTestDirectory(), "EndToEnd", $"{nameof(CustomSuffixScenario)}.{nameof(WhenTheTestIsRun)}.approuvé.txt");
 
     public void AndGivenCustomApprovalAndReceivedSuffixes()
     {
@@ -20,26 +20,26 @@ public class CustomSuffixScenario : BaseScenario
 
     public void AndGivenTheApprovedFileMatches()
     {
-        ReaderWriter.Files[_approvedPath] = "Foo";
+        ReaderWriter.Files[approvedPath] = "Foo";
     }
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnExceptionIsNotThrown()
     {
-        _action.Should().NotThrow();
+        action.Should().NotThrow();
     }
 
     public void AndThenTheReceivedFileIsNotWritten()
     {
-        ReaderWriter.Files.Keys.Should().NotContain(_receivedPath);
+        ReaderWriter.Files.Keys.Should().NotContain(receivedPath);
     }
 
     public void AndThenTheReporterIsNotLaunched()
     {
-        Reporter.DidNotReceiveWithAnyArgs().Report(_receivedPath, _approvedPath);
+        Reporter.DidNotReceiveWithAnyArgs().Report(receivedPath, approvedPath);
     }
 }

@@ -6,8 +6,8 @@ namespace Assent.Tests.EndToEnd;
 
 public class InterativeAsFalseThrowsAndExceptionIfApprovalFileIsMissingScenario : BaseScenario
 {
-    private Action? _action;
-    private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalseThrowsAndExceptionIfApprovalFileIsMissingScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
+    private Action? action;
+    private readonly string recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalseThrowsAndExceptionIfApprovalFileIsMissingScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
 
     public void AndGivenTheConfigurationSettingIsInteractiveIsFalse()
     {
@@ -16,17 +16,17 @@ public class InterativeAsFalseThrowsAndExceptionIfApprovalFileIsMissingScenario 
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnAssentExceptionIsThrown()
     {
-        _action.Should().Throw<AssentApprovedFileNotFoundException>();
+        action.Should().Throw<AssentApprovedFileNotFoundException>();
     }
 
     public void AndThenTheRecievedFileIsNotWritten()
     {
-        ReaderWriter.Files.Keys.Should().NotContain(_recievedPath);
+        ReaderWriter.Files.Keys.Should().NotContain(recievedPath);
     }
 
 }

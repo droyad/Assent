@@ -6,12 +6,8 @@ namespace Assent.Reporters;
 
 public class DiffReporter(IReadOnlyList<IDiffProgram> diffPrograms) : IReporter
 {
-#if NET45
-        internal static readonly bool IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
-#else
     internal static readonly bool IsWindows = System.Runtime.InteropServices.RuntimeInformation
         .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
-#endif
 
     static DiffReporter()
     {

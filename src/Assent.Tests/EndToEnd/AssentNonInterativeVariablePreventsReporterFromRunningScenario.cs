@@ -7,8 +7,8 @@ namespace Assent.Tests.EndToEnd;
 
 public class AssentNonInterativeVariablePreventsReporterFromRunningScenario : BaseScenario
 {
-    private Action? _action;
-    private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(AssentNonInterativeVariablePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
+    private Action? action;
+    private readonly string recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(AssentNonInterativeVariablePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
 
     public void AndGivenTheAssentNonInteractiveEnvironmentVariableIsSetToTrue()
     {
@@ -17,17 +17,17 @@ public class AssentNonInterativeVariablePreventsReporterFromRunningScenario : Ba
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnAssentExceptionIsThrown()
     {
-        _action.Should().Throw<AssentFailedException>().WithMessage("Strings differ");
+        action.Should().Throw<AssentFailedException>().WithMessage("Strings differ");
     }
 
     public void AndThenTheRecievedFileIsWritten()
     {
-        ReaderWriter.Files.Keys.Should().Contain(_recievedPath);
+        ReaderWriter.Files.Keys.Should().Contain(recievedPath);
     }
 
     [TearDown]

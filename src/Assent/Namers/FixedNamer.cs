@@ -5,15 +5,15 @@
 /// </summary>
 public class FixedNamer : INamer
 {
-    private readonly string _name;
+    private readonly string name;
 
     public FixedNamer(string name)
     {
-        _name = name;
+        this.name = name;
     }
 
     public string GetName(TestMetadata metadata)
     {
-        return _name;
+        return name;
     }
 }

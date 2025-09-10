@@ -6,7 +6,7 @@ namespace Assent.Tests.EndToEnd;
 
 public class CustomComparerThatThrowsAnExceptionScenario : BaseScenario
 {
-    private Action? _action;
+    private Action? action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {
@@ -16,18 +16,18 @@ public class CustomComparerThatThrowsAnExceptionScenario : BaseScenario
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnExceptionIsThrown()
     {
-        _action.Should().Throw<AssentFailedException>().And.Message.Should().StartWith("System.Exception: Bar");
+        action.Should().Throw<AssentFailedException>().And.Message.Should().StartWith("System.Exception: Bar");
     }
 }
 
 public class CustomComparerThatReturnsAResultScenario : BaseScenario
 {
-    private Action? _action;
+    private Action? action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {
@@ -37,18 +37,18 @@ public class CustomComparerThatReturnsAResultScenario : BaseScenario
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnExceptionIsThrown()
     {
-        _action.Should().Throw<AssentFailedException>().WithMessage("Bar");
+        action.Should().Throw<AssentFailedException>().WithMessage("Bar");
     }
 }
 
 public class CustomComparerWithFluentAssertionsScenario : BaseScenario
 {
-    private Action? _action;
+    private Action? action;
 
     public void AndGivenACustomComparerThatThrowsAnException()
     {
@@ -58,11 +58,11 @@ public class CustomComparerWithFluentAssertionsScenario : BaseScenario
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnExceptionIsThrown()
     {
-        _action.Should().Throw<AssentFailedException>().And.Message.Should().StartWith("NUnit.Framework.AssertionException: Expected r to be <null>, but found \"Foo\"");
+        action.Should().Throw<AssentFailedException>().And.Message.Should().StartWith("NUnit.Framework.AssertionException: Expected r to be <null>, but found \"Foo\"");
     }
 }

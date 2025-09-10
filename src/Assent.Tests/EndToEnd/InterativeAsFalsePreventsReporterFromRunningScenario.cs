@@ -6,9 +6,9 @@ namespace Assent.Tests.EndToEnd;
 
 public class InterativeAsFalsePreventsReporterFromRunningScenario : BaseScenario
 {
-    private Action? _action;
-    private readonly string _recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalsePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
-    private readonly string _approvedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalsePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
+    private Action? action;
+    private readonly string recievedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalsePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.received.txt";
+    private readonly string approvedPath = $@"{GetTestDirectory()}\EndToEnd\{nameof(InterativeAsFalsePreventsReporterFromRunningScenario)}.{nameof(WhenTheTestIsRun)}.approved.txt";
 
     public void AndGivenTheConfigurationSettingIsInteractiveIsFalse()
     {
@@ -17,22 +17,22 @@ public class InterativeAsFalsePreventsReporterFromRunningScenario : BaseScenario
 
     public void AndGivenTheApprovedFileDoesNotMatch()
     {
-        ReaderWriter.Files[_approvedPath] = "Bar";
+        ReaderWriter.Files[approvedPath] = "Bar";
     }
 
     public void WhenTheTestIsRun()
     {
-        _action = () => this.Assent("Foo", Configuration);
+        action = () => this.Assent("Foo", Configuration);
     }
 
     public void ThenAnAssentExceptionIsThrown()
     {
-        _action.Should().Throw<AssentFailedException>().WithMessage("Strings differ at 0.\r\nReceived:Foo\r\nApproved:Bar");
+        action.Should().Throw<AssentFailedException>().WithMessage("Strings differ at 0.\r\nReceived:Foo\r\nApproved:Bar");
     }
 
     public void AndThenTheRecievedFileIsWritten()
     {
-        ReaderWriter.Files.Keys.Should().Contain(_recievedPath);
+        ReaderWriter.Files.Keys.Should().Contain(recievedPath);
     }
 
     [TearDown]
