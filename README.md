@@ -6,8 +6,7 @@
 Assent is a simple assertion library for long strings. By default it 
 uses common diff tools to report on and resolve test failures.
 
-It is test framework agnostic and works with `.NET Framework 4.5`, 
-`NET Standard 1.3` and `.NET Core 1.0`.
+It is test framework agnostic and requires `.NET 8.0` or later.
 
 ## Installation
 Install the package from nuget by adding `Assent` to your `project.json` dependencies
