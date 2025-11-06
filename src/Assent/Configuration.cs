@@ -31,7 +31,13 @@ public class Configuration : IConfiguration<string>
         ReaderWriter = new StringReaderWriter();
         Namer = new DefaultNamer();
         Sanitiser = new NullSanitiser<string>();
-        IsInteractive = !"true".Equals(Environment.GetEnvironmentVariable("AssentNonInteractive"), StringComparison.OrdinalIgnoreCase);
+
+        var nonInteractiveVar = Environment.GetEnvironmentVariable("AssentNonInteractive")
+                                ?? Environment.GetEnvironmentVariable("assentnoninteractive")
+                                ?? Environment.GetEnvironmentVariable("ASSENTNONINTERACTIVE")
+                                ?? Environment.GetEnvironmentVariable("ASSENT_NON_INTERACTIVE");
+        
+        IsInteractive = !"true".Equals(nonInteractiveVar, StringComparison.OrdinalIgnoreCase);
     }
 
     private Configuration(Configuration basedOn)
